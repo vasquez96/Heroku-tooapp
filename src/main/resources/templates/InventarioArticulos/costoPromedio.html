@@ -4,9 +4,10 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{base}">
 <head>
-    <title>Inventario de la empresa</title>
+    <title>Costo promedio</title>
     <div layout:fragment="style_css">
         <!-- Aqui va el codigo CSS extra que se quiera agregar -->
+
 
         <link th:href="@{/vendor/datatables/dataTables.bootstrap4.min.css}"
               href="/static/vendor/datatables/dataTables.bootstrap4.min.css"
@@ -23,7 +24,7 @@
             <div
                     class="card py-3 my-3 shadow-sm d-flex flex-row align-items-center justify-content-between">
                 <div class="col mr-2 text-dark">
-                    <h2>Inventario de la empresa</h2>
+                    <h2>Costo promedio</h2>
                 </div>
             </div>
         </div>
@@ -39,25 +40,27 @@
                         <tr>
                             <th>#</th>
                             <th>Producto</th>
-                            <th>Existencia</th>
-                            <th>Cantidad Mínima</th>
-                            <th>Cantidad Máxima</th>
-                            <th>Acciones</th>
+                            <th>Movimiento</th>
+                            <th>Fecha de movimiento</th>
+                            <th>Cantidad de entrada</th>
+                            <th>Cantidad de salida</th>
+                            <th>Precio de compra</th>
+                            <th>Total</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="product, numero : ${listProductoEmpresa}">
-                            <td th:text="${numero.count}">ID</td>
-                            <td th:text="${product.nombre}">ID</td>
-                            <td th:text="${product.cantidad}">nombre de
-                                producto</td>
-                            <td th:text="${product.min}">periodo de gracia</td>
-                            <td th:text="${product.max}">descuento</td>
-                            <td>
-                                <a th:href="@{/bodega/productoEmpresa/edit/{id}(id=${product.idProductoEmpresa})}"><button type="button" class="btn btn-warning">Editar</button></a>
-                                <a th:href="@{/bodega/costoPromedio/view/{id}(id=${product.idProductoEmpresa})}"><button type="button" class="btn btn-primary">Costo promedio</button></a>
-                            </td>
-                        </tr>
+                        <div th:with="i=0">
+                            <tr th:each="movimientoEmpresa, numero : ${movimientoEmpresasProducto}">
+                                    <td th:text="${numero.count}"></td>
+                                    <td th:text="${movimientoEmpresa.getNombreProducto()}"></td>
+                                    <td th:text="${movimientoEmpresa.getMovimiento()}"></td>
+                                    <td th:text="${movimientoEmpresa.getFechaMovimiento()}"></td>
+                                    <td th:text="${movimientoEmpresa.getCantidadEntrada()}"></td>
+                                    <td th:text="${movimientoEmpresa.getCantidadSalida()}"></td>
+                                    <td th:text="'$ ' + ${movimientoEmpresa.getPrecioCompra()}"></td>
+                                    <td th:text="'$ ' + ${movimientoEmpresa.getTotal()}"></td>
+                            </tr>
+                        </div>
                         </tbody>
                     </table>
                 </div>
@@ -79,7 +82,7 @@
             src="/static/js/demo/datatables-demo.js"></script>
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('#myTable').DataTable();
         });
     </script>
