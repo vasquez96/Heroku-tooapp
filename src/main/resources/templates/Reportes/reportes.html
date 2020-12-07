@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base}">
+<head>
+    <title>Reportes</title>
+    <div layout:fragment="style_css">
+        <!-- Aqui va el codigo CSS extra que se quiera agregar -->
+
+
+        <link th:href="@{/vendor/datatables/dataTables.bootstrap4.min.css}"
+              href="/static/vendor/datatables/dataTables.bootstrap4.min.css"
+              rel="stylesheet" type="text/css">
+    </div>
+</head>
+
+<body>
+
+<div layout:fragment="main_content">
+    <!-- Aqui va el contenido principal -->
+    <div class="row">
+        <div class="col-xl-12">
+            <div
+                    class="card py-3 my-3 shadow-sm d-flex flex-row align-items-center justify-content-between">
+                <div class="col mr-2 text-dark">
+                    <h2>Reportes</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card shadow-sm my-3 py-3">
+                <div class="table-responsive-lg table-responsive-sm table-responsive-md col-xl-12 col-md-12 col-sm-12">
+                    <!-- ESCRIBIR CODIGO AQUÍ -->
+                    <!-- Menú de los reportes -->
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <!-- Menú de la cantidad de articulos solicitados por departamento -->
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" id="cantidadArticulosDepartamento-tab" data-toggle="tab"
+                               href="#cantidadArticulosDepartamento" role="tab"
+                               aria-controls="cantidadArticulosDepartamento" aria-selected="true">Cantidad de articulos
+                                por departamento</a>
+                        </li>
+                        <!-- Menú de las precios vigentes de los artículos por proveedor -->
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="precioVigente-tab" data-toggle="tab" href="#precioVigente"
+                               role="tab"
+                               aria-controls="precioVigente" aria-selected="false">Precios vigentes</a>
+                        </li>
+                        <!-- Menú de la cantidad de órdenes de compra asignadas por proveedor con su monto respectivo -->
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" id="ordenCompraProveedor-tab" data-toggle="tab"
+                               href="#ordenCompraProveedor" role="tab"
+                               aria-controls="ordenCompraProveedor" aria-selected="true">Ordenes de compra por
+                                proveedor</a>
+                        </li>
+                        <!-- Menú del stock del inventario de la empresa -->
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="stockEmpresa-tab" data-toggle="tab" href="#stockEmpresa" role="tab"
+                               aria-controls="stockEmpresa" aria-selected="false">Stock de la empresa</a>
+                        </li>
+                    </ul>
+                    <!-- Fin menú de los reportes -->
+
+                    <!-- Contenido de cada menu del reporte -->
+                    <div class="tab-content" id="myTabContent">
+                        <!-- *** Cantidad de articulos solicitados por departamento *** -->
+                        <div class="tab-pane fade show active" id="cantidadArticulosDepartamento" role="tabpanel"
+                             aria-labelledby="cantidadArticulosDepartamento-tab">
+
+                        </div> <!-- *** Fin cantidad de articulos solicitados por departamento *** -->
+
+                        <!-- *** Precios vigentes de los artículos por proveedor *** -->
+                        <div class="tab-pane fade" id="precioVigente" role="tabpanel"
+                             aria-labelledby="precioVigente-tab">
+                            <table class="table" id="myTableAprobada">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Proveedor</th>
+                                    <th>Fecha inicio de la promoción</th>
+                                    <th>Fecha fin de la promoción</th>
+                                    <th>Precio vigente</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <div th:with="i=0">
+                                    <tr th:each="productoProveedorPrecioVigente : ${productoProveedorPrecioVigentes}">
+                                        <td th:text="${i+1}"></td>
+                                        <td>
+                                            <p th:text="${productoProveedorPrecioVigente.getIdProveedor().getNombreProveedor()}"></p>
+                                            <p th:text="${productoProveedorPrecioVigente.getIdProveedor().getApellidoProveedor()}"></p>
+                                        </td>
+                                        <td th:text="${productoProveedorPrecioVigente.getFechaVigenciaInicio()}"></td>
+                                        <td th:text="${productoProveedorPrecioVigente.getFechaVigenciaFinal()}"></td>
+                                        <td th:text="${productoProveedorPrecioVigente.getPrecio()}"></td>
+                                    </tr>
+                                </div>
+                                </tbody>
+                            </table>
+                        </div> <!-- *** Fin precios vigentes de los artículos por proveedor *** -->
+
+                        <!-- *** Cantidad de órdenes de compra asignadas por proveedor con su monto respectivo *** -->
+                        <div class="tab-pane fade show active" id="ordenCompraProveedor" role="tabpanel"
+                             aria-labelledby="ordenCompraProveedor-tab">
+
+                        </div>
+                        <!-- *** Fin cantidad de órdenes de compra asignadas por proveedor con su monto respectivo *** -->
+
+                        <!-- *** Stock del inventario de la empresa *** -->
+                        <div class="tab-pane fade show active" id="stockEmpresa" role="tabpanel"
+                             aria-labelledby="stockEmpresa-tab">
+
+                        </div> <!-- *** Fin stock del inventario de la empresa *** -->
+
+                    </div> <!-- Fin del contenido de cada menu del reporte -->
+                </div> <!-- Fin del div escribir aqui -->
+            </div>
+        </div>
+    </div>
+</div>
+<div layout:fragment="style_js">
+    <!-- Aqui va el contenido JS extra -->
+
+    <script th:src="@{/vendor/datatables/jquery.dataTables.min.js}"
+            src="/static/vendor/datatables/jquery.dataTables.min.js"></script>
+
+    <script th:src="@{/vendor/datatables/dataTables.bootstrap4.min.js}"
+            src="/static/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+
+    <script th:src="@{/js/demo/datatables-demo.js}"
+            src="/static/js/demo/datatables-demo.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+</div>
+
+</body>
+</html>
