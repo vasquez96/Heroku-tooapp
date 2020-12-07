@@ -41,9 +41,11 @@ public class DepartamentoService {
 
         List<Departamento> listDepartamentosAll = departamentoService.listAll();
         List<DepartamentoMap> listDepartamentoMap = new ArrayList();
-        DepartamentoMap departamentoMap = new DepartamentoMap();
+
 
         for (Departamento departamento : listDepartamentosAll) {
+
+            DepartamentoMap departamentoMap = new DepartamentoMap();
                 departamentoMap.setIdDeDepartamento(departamento.getIdDepartamento());
                 departamentoMap.setNombreDepartamento(departamento.getNombreDepartamento());
             listDepartamentoMap.add(departamentoMap);

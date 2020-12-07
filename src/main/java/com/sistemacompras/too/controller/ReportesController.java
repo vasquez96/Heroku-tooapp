@@ -72,7 +72,7 @@ public class ReportesController {
             i ++;
         }
 
-
+        System.out.println("Corrio: " + i);
 
 
 
