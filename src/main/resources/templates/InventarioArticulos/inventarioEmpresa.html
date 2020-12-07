@@ -15,10 +15,6 @@
 </head>
 
 <body>
-<div layout:fragment="item_menu">
-    <!-- Aqui van las opciones del menu lateral -->
-    <!-- Nav Item - Dashboard -->
-</div>
 
 <div layout:fragment="main_content">
     <!-- Aqui va el contenido principal -->
@@ -50,7 +46,8 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="product : ${listProductoEmpresa}">
+                        <tr th:each="product, numero : ${listProductoEmpresa}">
+                            <td th:text="${numero.count}">ID</td>
                             <td th:text="${product.nombre}">ID</td>
                             <td th:text="${product.cantidad}">nombre de
                                 producto</td>

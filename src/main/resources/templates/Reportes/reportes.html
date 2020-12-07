@@ -46,14 +46,13 @@
                         <!-- Menú de las precios vigentes de los artículos por proveedor -->
                         <li class="nav-item" role="presentation">
                             <a class="nav-link" id="precioVigente-tab" data-toggle="tab" href="#precioVigente"
-                               role="tab"
-                               aria-controls="precioVigente" aria-selected="false">Precios vigentes</a>
+                               role="tab" aria-controls="precioVigente" aria-selected="false">Precios vigentes</a>
                         </li>
                         <!-- Menú de la cantidad de órdenes de compra asignadas por proveedor con su monto respectivo -->
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link active" id="ordenCompraProveedor-tab" data-toggle="tab"
+                            <a class="nav-link" id="ordenCompraProveedor-tab" data-toggle="tab"
                                href="#ordenCompraProveedor" role="tab"
-                               aria-controls="ordenCompraProveedor" aria-selected="true">Ordenes de compra por
+                               aria-controls="ordenCompraProveedor" aria-selected="false">Ordenes de compra por
                                 proveedor</a>
                         </li>
                         <!-- Menú del stock del inventario de la empresa -->
@@ -67,8 +66,7 @@
                     <!-- Contenido de cada menu del reporte -->
                     <div class="tab-content" id="myTabContent">
                         <!-- *** Cantidad de articulos solicitados por departamento *** -->
-                        <div class="tab-pane fade show active" id="cantidadArticulosDepartamento" role="tabpanel"
-                             aria-labelledby="cantidadArticulosDepartamento-tab">
+                        <div class="tab-pane fade show active" id="cantidadArticulosDepartamento" role="tabpanel" aria-labelledby="cantidadArticulosDepartamento-tab">
                             <table class="table" id="myTableCantidad">
                                 <thead>
                                 <tr>
@@ -88,8 +86,7 @@
                         </div> <!-- *** Fin cantidad de articulos solicitados por departamento *** -->
 
                         <!-- *** Precios vigentes de los artículos por proveedor *** -->
-                        <div class="tab-pane fade" id="precioVigente" role="tabpanel"
-                             aria-labelledby="precioVigente-tab">
+                        <div class="tab-pane fade" id="precioVigente" role="tabpanel" aria-labelledby="precioVigente-tab">
                             <table class="table" id="precioVigenteTabla">
                                 <thead>
                                 <tr>
@@ -117,22 +114,58 @@
                                             </div>
                                         </div>
                                     </tr>
-                                </div>
                                 </tbody>
                             </table>
                         </div> <!-- *** Fin precios vigentes de los artículos por proveedor *** -->
 
                         <!-- *** Cantidad de órdenes de compra asignadas por proveedor con su monto respectivo *** -->
-                        <div class="tab-pane fade show active" id="ordenCompraProveedor" role="tabpanel"
-                             aria-labelledby="ordenCompraProveedor-tab">
-
+                        <div class="tab-pane fade" id="ordenCompraProveedor" role="tabpanel" aria-labelledby="ordenCompraProveedor-tab">
+                            <table class="table" id="ordenCompraProveedorProveedor">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Proveedor</th>
+                                    <th>Fecha de la orden de compra</th>
+                                    <th>Total de la compra</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="ordenDeCompra,numero : ${ordenesDeCompra}">
+                                    <td th:text="${numero.count}">ID</td>
+                                    <td>
+                                        <p th:text="${ordenDeCompra.getIdProveedor().getNombreProveedor()}"></p>
+                                        <p th:text="${ordenDeCompra.getIdProveedor().getApellidoProveedor()}"></p>
+                                    </td>
+                                    <td th:text="'$ ' + ${ordenDeCompra.getFechaPedido()}"></td>
+                                    <td th:text="'$ ' + ${ordenDeCompra.getTotalCompra()}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                         <!-- *** Fin cantidad de órdenes de compra asignadas por proveedor con su monto respectivo *** -->
 
                         <!-- *** Stock del inventario de la empresa *** -->
-                        <div class="tab-pane fade show active" id="stockEmpresa" role="tabpanel"
-                             aria-labelledby="stockEmpresa-tab">
-
+                        <div class="tab-pane fade" id="stockEmpresa" role="tabpanel" aria-labelledby="stockEmpresa-tab">
+                            <table class="table" id="stockEmpresaTabla">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Producto</th>
+                                    <th>Existencia</th>
+                                    <th>Cantidad Mínima</th>
+                                    <th>Cantidad Máxima</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="product, numero : ${listProductoEmpresa}">
+                                    <td th:text="${numero.count}">#</td>
+                                    <td th:text="${product.nombre}">Nombre del producto</td>
+                                    <td th:text="${product.cantidad}">Cantidad</td>
+                                    <td th:text="${product.min}">Mínimo</td>
+                                    <td th:text="${product.max}">Máximo</td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div> <!-- *** Fin stock del inventario de la empresa *** -->
 
                     </div> <!-- Fin del contenido de cada menu del reporte -->
@@ -160,10 +193,19 @@
                 //Quitando el ordenamiento de las columnas
                 "aaSorting": [],
                 "aoColumnDefs": [{
-                    'bSortable': false,
-                    'aTargets': [0, 1, 2, 3, 4]
+                    'bSortable': true,
+                    'aTargets': [0,3,4]
                 }]
             });
+            $('#stockEmpresaTabla').DataTable({
+                //Quitando el ordenamiento de las columnas
+                "aaSorting": [],
+                "aoColumnDefs": [{
+                    'bSortable': true,
+                    'aTargets': [0]
+                }]
+            });
+            $('#ordenCompraProveedorProveedor').DataTable();
             $('#myTable').DataTable();
             $('#myTableCantidad').DataTable();
         });

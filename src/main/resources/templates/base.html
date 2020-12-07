@@ -57,7 +57,7 @@
                         class="fas fa-fw fa-tachometer-alt"></i> <span>Requisiciones</span>
                 </a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{/admin/movimientoInventario}"> <i
-                        class="fas fa-fw fa-tachometer-alt"></i> <span>Movimiento Inventario</span>
+                        class="fas fa-fw fa-tachometer-alt"></i> <span>Movimiento inventario</span>
                 </a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{/admin/reportes}"> <i
                         class="fas fa-fw fa-tachometer-alt"></i> <span>Reportes</span>
@@ -68,7 +68,7 @@
                         class="fas fa-fw fa-tachometer-alt"></i> <span>Requisiciones</span>
                 </a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{/jefe/ordenesDeCompras}"> <i
-                        class="fas fa-fw fa-tachometer-alt"></i> <span>Ordenes De Compra</span>
+                        class="fas fa-fw fa-tachometer-alt"></i> <span>Ordenes de compra</span>
                 </a></li>
             </div>
             <div sec:authorize="hasRole('ROLE_EMPLEADO')">
@@ -84,6 +84,9 @@
             <div sec:authorize="hasRole('ROLE_BODEGUERO')">
                 <li class="nav-item"><a class="nav-link" th:href="@{/bodega/remisiones}"> <i
                         class="fas fa-fw fa-tachometer-alt"></i> <span>Notas de remision</span>
+                </a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/bodega/productoEmpresa}"> <i
+                        class="fas fa-fw fa-tachometer-alt"></i> <span>Inventario de la empresa</span>
                 </a></li>
             </div>
 

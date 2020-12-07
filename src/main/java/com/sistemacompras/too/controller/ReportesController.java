@@ -1,10 +1,7 @@
 package com.sistemacompras.too.controller;
 
 import com.sistemacompras.too.entity.*;
-import com.sistemacompras.too.service.DepartamentoService;
-import com.sistemacompras.too.service.ProductoProveedorService;
-import com.sistemacompras.too.service.ProductoRequisicionService;
-import com.sistemacompras.too.service.RequisicionDeArticuloService;
+import com.sistemacompras.too.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +26,10 @@ public class ReportesController {
     private ProductoRequisicionService productoRequisicionService;
     @Autowired
     private EscenarioCompraController escenarioCompraController;
+    @Autowired
+    private ProductoEmpresaService productoEmpresaService;
+    @Autowired
+    private OrdenDeCompraService ordenDeCompraService;
 
     //Metodo que muestra los reportes
     @RequestMapping("/reportes")
@@ -42,10 +43,10 @@ public class ReportesController {
         //Creamos una lista que almacenará los productos de los proveedores que se encuentren en el rango
         // de la fecha de hoy y no haya terminado la promoción
         List<ProductoProveedor> productoProveedorPrecioVigentes = null;
-
-        /* FIN REPORTE DE PRECIOS VIGENTES DE ARTÍCULOS POR PROVEEDOR */
         //Precio con descuento
         Map<Long, Double> preciosConDescuento = escenarioCompraController.calcularPrecioConDescuento(productoProveedorTodos);
+        /* FIN REPORTE DE PRECIOS VIGENTES DE ARTÍCULOS POR PROVEEDOR */
+
         //Manda los objetos a la vista
 
         //Se crea una lista de tipo DepartamentoMap para ingresar los id y nombre de todos los departamentos
@@ -75,6 +76,19 @@ public class ReportesController {
         }
 
         System.out.println("Corrio: " + i);
+
+        /* REPORTE STOCK INVENTARIO DE LA EMPRESA */
+        List<ProductoEmpresa> listProductoEmpresaAll = productoEmpresaService.listAll();
+        //Enviando los objetos a la vista
+        mav.addObject("listProductoEmpresa", listProductoEmpresaAll);
+        /* FIN REPORTE STOCK INVENTARIO DE LA EMPRESA */
+
+        /* REPORTE ORDEN DE COMPRA POR PROVEEDOR */
+        List<OrdenDeCompra> ordenesDeCompra = ordenDeCompraService.listAll();
+        //Enviando los objetos a la vista
+        mav.addObject("ordenesDeCompra", ordenesDeCompra);
+        /* FIN REPORTE ORDEN DE COMPRA POR PROVEEDOR */
+
         //Enviando a la vista la lista de los productos por proveedor con su precio vigente
         mav.addObject("productoProveedorPrecioVigentes", productoProveedorPrecioVigentes);
         mav.addObject("departamentoMap", departamentoMap);
