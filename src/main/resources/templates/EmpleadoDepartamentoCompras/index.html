@@ -39,7 +39,7 @@
                     <table class="table" id="myTable">
                         <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>#</th>
                             <th>elaborado por</th>
                             <th>autorizado por</th>
                             <th>recibido por</th>
@@ -49,8 +49,8 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="requisicion : ${listRequisicionDeArticulo}">
-                            <td th:text="${requisicion.idRequisicionDeArticulo}">ID</td>
+                        <tr th:each="requisicion, numero : ${listRequisicionDeArticulo}">
+                            <td th:text="${numero.count}"></td>
                             <td th:text="${requisicion.elaboradoPor}">elaborado por</td>
                             <td th:text="${requisicion.autorizadoPor}">autorizado por</td>
                             <td th:text="${requisicion.recibidoPor}">descuento</td>
@@ -83,7 +83,14 @@
 
     <script>
         $(document).ready(function() {
-            $('#myTable').DataTable();
+            $('#myTable').DataTable({
+                //Quitando el ordenamiento de las columnas
+                "aaSorting": [],
+                "aoColumnDefs": [{
+                    'bSortable': false,
+                    'aTargets': [0, 1, 2, 3, 4, 5, 6, 7]
+                }]
+            });
         });
     </script>
 </div>

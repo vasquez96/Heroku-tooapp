@@ -24,7 +24,7 @@
 			<div
 					class="card py-3 my-3 shadow-sm d-flex flex-row align-items-center justify-content-between">
 				<div class="col mr-2 text-dark">
-					<h2>Listar Producto de proveedor</h2>
+					<h2>Listar mis productos</h2>
 				</div>
 				<div class="col-auto">
 					<a class="btn btn-success text-right" th:href="@{/proveedor/ProductoProveedor/new}"> <i
@@ -44,7 +44,7 @@
 					<table class="table" id="myTable">
 						<thead>
 						<tr>
-							<th>ID</th>
+							<th>#</th>
 							<th>nombre de producto</th>
 							<th>periodo de gracia</th>
 							<th>descuento in</th>
@@ -53,8 +53,8 @@
 						</tr>
 						</thead>
 						<tbody>
-						<tr th:each="product : ${listProductoProveedor}">
-							<td th:text="${product.idProductoProveedor}">ID</td>
+						<tr th:each="product, numero : ${listProductoProveedor}">
+							<td th:text="${numero.count}"></td>
 							<td th:text="${product.nombreProductoProveedor}">nombre de
 								producto</td>
 							<td th:text="${product.periodoDeGracia}">periodo de gracia</td>
@@ -91,7 +91,14 @@
 
 	<script>
 		$(document).ready(function() {
-			$('#myTable').DataTable();
+			$('#myTable').DataTable({
+				//Quitando el ordenamiento de las columnas
+				"aaSorting": [],
+				"aoColumnDefs": [{
+					'bSortable': false,
+					'aTargets': [0, 1, 2, 3, 4, 5]
+				}]
+			});
 		});
 	</script>
 </div>

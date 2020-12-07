@@ -39,7 +39,7 @@
                     <table class="table" id="myTable">
                         <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>#</th>
                             <th>Realizado por</th>
                             <th>Fecha de pedido</th>
                             <th>Fecha de pago</th>
@@ -48,9 +48,9 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="orden : ${listordenDeCompras}">
-                            <td th:text="${orden.idOrdenDeCompra}">ID</td>
-                            <td th:text="${orden.idOrdenDeCompra}">ID</td>
+                        <tr th:each="orden, numero : ${listordenDeCompras}">
+                            <td th:text="${numero.count}"></td>
+                            <td th:text="${orden.getIdEmpleado().getNombreEmpleado()}">nombreEmpleado</td>
                             <td th:text="${orden.fechaPedido}">fechaPedido</td>
                             <td th:text="${orden.fechaPago}">fechaPago</td>
                             <td th:text="${orden.totalCompra}">totalCompra</td>
@@ -81,7 +81,14 @@
 
     <script>
         $(document).ready(function() {
-            $('#myTable').DataTable();
+            $('#myTable').DataTable({
+                //Quitando el ordenamiento de las columnas
+                "aaSorting": [],
+                "aoColumnDefs": [{
+                    'bSortable': false,
+                    'aTargets': [0, 1, 2, 3, 4, 5]
+                }]
+            });
         });
     </script>
 </div>
