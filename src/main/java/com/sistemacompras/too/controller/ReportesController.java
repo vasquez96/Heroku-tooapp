@@ -67,15 +67,13 @@ public class ReportesController {
                 }
             }
             departamentoMap.get(i).setNumeroDeVentas(acumulador);
-            System.out.println(departamentoMap.get(i).toString());
             acumulador = 0;
             i ++;
         }
 
-        System.out.println("Corrio: " + i);
-
         //Enviando a la vista la lista de los productos por proveedor con su precio vigente
         mav.addObject("productoProveedorPrecioVigentes", productoProveedorPrecioVigentes);
+        mav.addObject("departamentoMap", departamentoMap);
         return mav;
     }
 }
