@@ -65,7 +65,7 @@ public class RequisicionDeArticuloService {
         List<RequisicionDeArticulo> listRequisicionDeArticulo = new ArrayList();
 
         for (RequisicionDeArticulo requisicionDeArticulo : listRequisicionDeArticuloall) {
-            if(requisicionDeArticulo.getIdDepartamento().getIdDepartamento() == departamento)
+            if(requisicionDeArticulo.getIdDepartamento().getIdDepartamento() == departamento && requisicionDeArticulo.getEstado() == 1)
             {
                 listRequisicionDeArticulo.add(requisicionDeArticulo);
             }

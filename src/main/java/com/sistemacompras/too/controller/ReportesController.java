@@ -74,13 +74,8 @@ public class ReportesController {
 
         System.out.println("Corrio: " + i);
 
-
-
-
         //Enviando a la vista la lista de los productos por proveedor con su precio vigente
         mav.addObject("productoProveedorPrecioVigentes", productoProveedorPrecioVigentes);
         return mav;
     }
-
-
 }

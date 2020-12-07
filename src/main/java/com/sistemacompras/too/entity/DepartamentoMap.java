@@ -4,14 +4,24 @@ public class DepartamentoMap {
     Long idDeDepartamento;
     String nombreDepartamento;
     int numeroDeVentas;
+    double ventas;
 
     public DepartamentoMap() {
     }
 
-    public DepartamentoMap(Long idDeDepartamento, String nombreDepartamento, int numeroDeVentas) {
+    public DepartamentoMap(Long idDeDepartamento, String nombreDepartamento, int numeroDeVentas, double ventas) {
         this.idDeDepartamento = idDeDepartamento;
         this.nombreDepartamento = nombreDepartamento;
         this.numeroDeVentas = numeroDeVentas;
+        this.ventas = ventas;
+    }
+
+    public double getVentas() {
+        return ventas;
+    }
+
+    public void setVentas(double ventas) {
+        this.ventas = ventas;
     }
 
     public Long getIdDeDepartamento() {
@@ -44,6 +54,7 @@ public class DepartamentoMap {
                 "idDeDepartamento=" + idDeDepartamento +
                 ", nombreDepartamento='" + nombreDepartamento + '\'' +
                 ", numeroDeVentas=" + numeroDeVentas +
+                ", ventas=" + ventas +
                 '}';
     }
 }
