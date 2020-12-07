@@ -33,7 +33,13 @@ public class Departamento {
 		this.idDepartamento = idDepartamento;
 	}
 
-	
+	public String getNombreDepartamento() {
+		return nombreDepartamento;
+	}
+
+	public void setNombreDepartamento(String nombreDepartamento) {
+		this.nombreDepartamento = nombreDepartamento;
+	}
 
 	@Override
 	public int hashCode() {

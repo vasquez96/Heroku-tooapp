@@ -54,4 +54,22 @@ public class RequisicionDeArticuloService {
     public void delete(Long id){
         requisicionDeArticuloRepository.deleteById(id);
     }
+
+
+    //Devuelve las notas segun el departamento al que pertenezcan
+    public List<RequisicionDeArticulo> listSelectedbyDepartament(Long departamento) {
+        //Se crea una lista con todas las requisiciones
+        List<RequisicionDeArticulo> listRequisicionDeArticuloall = requisicionDeArticuloService.listAll();
+
+        //Se crea lista para ingresar las requisiciones que sean del departamento solicitado
+        List<RequisicionDeArticulo> listRequisicionDeArticulo = new ArrayList();
+
+        for (RequisicionDeArticulo requisicionDeArticulo : listRequisicionDeArticuloall) {
+            if(requisicionDeArticulo.getIdDepartamento().getIdDepartamento() == departamento)
+            {
+                listRequisicionDeArticulo.add(requisicionDeArticulo);
+            }
+        }
+        return listRequisicionDeArticulo;
+    }
 }

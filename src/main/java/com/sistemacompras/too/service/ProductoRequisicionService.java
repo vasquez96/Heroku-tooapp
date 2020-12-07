@@ -36,9 +36,9 @@ public class ProductoRequisicionService {
     public List<ProductoRequisicion> listByIdRequisicion(Long id) {
         return productoRequisicionRepository.findAllByIdRequisicionDeArticulo(id);
     }
-    
+
+    //Listar todas los productosRequisicion segun el id de la requisicion
     public List<ProductoRequisicion> listadoPorId(Long id) {
-    	
     	List<ProductoRequisicion> productoRequisicion = productoRequisicionService.listAll();
         List<ProductoRequisicion> list = new ArrayList<>();
         
