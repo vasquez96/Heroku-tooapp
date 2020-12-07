@@ -69,7 +69,22 @@
                         <!-- *** Cantidad de articulos solicitados por departamento *** -->
                         <div class="tab-pane fade show active" id="cantidadArticulosDepartamento" role="tabpanel"
                              aria-labelledby="cantidadArticulosDepartamento-tab">
-
+                            <table class="table" id="myTableCantidad">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Departamento</th>
+                                    <th>Cantidad de articulos</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="departamentoMap, numero : ${departamentoMap}">
+                                        <td th:text="${numero.count}"></td>
+                                        <td th:text="${departamentoMap.getNombreDepartamento()}"></td>
+                                        <td th:text="${departamentoMap.getNumeroDeVentas()}"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div> <!-- *** Fin cantidad de articulos solicitados por departamento *** -->
 
                         <!-- *** Precios vigentes de los artículos por proveedor *** -->
@@ -102,6 +117,7 @@
                                             </div>
                                         </div>
                                     </tr>
+                                </div>
                                 </tbody>
                             </table>
                         </div> <!-- *** Fin precios vigentes de los artículos por proveedor *** -->
@@ -148,8 +164,11 @@
                     'aTargets': [0, 1, 2, 3, 4]
                 }]
             });
+            $('#myTable').DataTable();
+            $('#myTableCantidad').DataTable();
         });
     </script>
+
 </div>
 
 </body>
