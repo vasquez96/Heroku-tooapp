@@ -29,74 +29,86 @@
 			</div>
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-xl-12">
-			<div class="card shadow-sm my-3 py-3">
-				<div
-						class="table-responsive-lg table-responsive-sm table-responsive-md col-xl-12 col-md-12 col-sm-12">
+	<div class="card-body">
+		<div class="row align-items-center justify-content-center">
+			<div class="col-sm-6">
 					<!-- ESCRIBIR CODIGO AQUÃ� -->
 
 					<form action="#" th:action="@{/proveedor/ProductoProveedor/save}"
 						  th:object="${productoProveedor}" method="post">
-
-
-						<p>Id del producto:</p>
-						<input type="text" th:field="*{idProductoProveedor}">
-
-						<p>Nombre del producto:</p>
-						<input type="text" th:field="*{nombreProductoProveedor}">
-
-						<p>Periodo de gracia:</p>
-						<input type="number" th:field="*{periodoDeGracia}">
-
-						<p>Descuento:</p>
-						<input type="number" th:field="*{descuento}">
-
-						<p>Cantidad de existencia:</p>
-						<input type="number" th:field="*{numExistencia}">
-
-						<p>Cantidad de existencia:</p>
-						<input type="number" th:field="*{precio}">
-
-						<p>Fecha de inicio de promocion:</p>
-						<input type="date" th:field="*{fechaVigenciaInicio}">
-
-						<p>Fecha de final de promocion:</p>
-						<input type="date" th:field="*{fechaVigenciaFinal}">
-
-						<p>Unidad:</p>
-						<input type="text" th:field="*{unidad}">
-
-
-
-						<button type="submit" class="btn btn-warning">Editar</button>
-
-
+						<div class="row">
+						<div class="col-sm-6">
+						<div class="form-group">
+							<label for=""> Id del producto:</label>
+						<input type="text" class="form-control" th:field="*{idProductoProveedor}" disabled>
+						</div>
+						</div>
+						</div>
+						<div class="row">
+							<div class="col">
+								<div class="form-group">
+									<label for=""><i class="text-danger">*</i> Nombre del producto:</label>
+									<input type="text" class="form-control" th:field="*{nombreProductoProveedor}" required>
+								</div>
+							</div>
+							<div class="col">
+								<div class="form-group">
+									<label for=""><i class="text-danger">*</i>Periodo de gracia:</label>
+									<input type="number" class="form-control" th:field="*{periodoDeGracia}" required>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col">
+								<div class="form-group">
+									<label for=""> Descuento:</label>
+									<input type="number" class="form-control" th:field="*{descuento}">
+								</div>
+							</div>
+							<div class="col">
+								<div class="form-group">
+									<label for=""><i class="text-danger">*</i>Numero de existencia:</label>
+									<input type="number" class="form-control" th:field="*{numExistencia}" required>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col">
+								<div class="form-group">
+									<label for=""><i class="text-danger">*</i> Fecha de inicio de promocion:</label>
+									<input type="date" class="form-control" th:field="*{fechaVigenciaInicio}" required>
+								</div>
+							</div>
+							<div class="col">
+								<div class="form-group">
+									<label for=""><i class="text-danger">*</i>Fecha de final de promocion:</label>
+									<input type="date" class="form-control" th:field="*{fechaVigenciaFinal}" required>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col">
+								<div class="form-group">
+									<label for=""><i class="text-danger">*</i> Unidad:</label>
+									<input type="text" class="form-control" th:field="*{unidad}" required>
+								</div>
+							</div>
+							<div class="col">
+								<div class="form-group">
+									<label for=""><i class="text-danger">*</i>Precio:</label>
+									<input type="number" class="form-control" th:field="*{precio}"  required>
+								</div>
+							</div>
+						</div>
+						<div class="row justify-content-center align-content-center ">
+							<button class="btn btn-primary mr-3" type="submit"><i class="fas fa-save"></i> Guardar</button>
+							<a class="btn btn-secondary ml-3" th:href="@{/proveedor/ProductoProveedor}"><i class="fas fa-backspace"> Cancelar</i></a>
+						</div>
 					</form>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<div layout:fragment="style_js">
-	<!-- Aqui va el contenido JS extra -->
-
-	<script th:src="@{/vendor/datatables/jquery.dataTables.min.js}"
-			src="/static/vendor/datatables/jquery.dataTables.min.js"></script>
-
-	<script th:src="@{/vendor/datatables/dataTables.bootstrap4.min.js}"
-			src="/static/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-
-	<script th:src="@{/js/demo/datatables-demo.js}"
-			src="/static/js/demo/datatables-demo.js"></script>
-
-	<script>
-		$(document).ready(function() {
-			$('#myTable').DataTable();
-		});
-	</script>
-</div>
-
 </body>
 </html>

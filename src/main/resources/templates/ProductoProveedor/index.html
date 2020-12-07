@@ -14,7 +14,19 @@
 			  rel="stylesheet" type="text/css">
 	</div>
 </head>
-
+<!--@section('content')-->
+<!-- Mensaje de éxito al crear un usuario -->
+<!--@if(session('info'))-->
+<!--<div th:if="${message}">-->
+<script>
+	sweetAlert({
+			title: "${message}",
+		icon: "success",
+	});
+</script>
+</div>
+<!--@endif-->
+<!-- Fin del mensaje de éxito al crear un usuario -->
 <body>
 
 <div layout:fragment="main_content">
@@ -24,7 +36,8 @@
 			<div
 					class="card py-3 my-3 shadow-sm d-flex flex-row align-items-center justify-content-between">
 				<div class="col mr-2 text-dark">
-					<h2>Listar mis productos</h2>
+					<h2>Listar Producto de proveedor</h2>
+					<h2 th:text="${message}"></h2>
 				</div>
 				<div class="col-auto">
 					<a class="btn btn-success text-right" th:href="@{/proveedor/ProductoProveedor/new}"> <i
@@ -101,6 +114,8 @@
 			});
 		});
 	</script>
+	<!-- Librería para mostrar alertas -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </div>
 
 </body>

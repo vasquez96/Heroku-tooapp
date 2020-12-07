@@ -17,6 +17,7 @@ import com.sistemacompras.too.entity.Proveedor;
 import com.sistemacompras.too.entity.User;
 import com.sistemacompras.too.service.ProveedorService;
 import com.sistemacompras.too.service.UserService;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
@@ -72,7 +73,7 @@ public class ProductoProveedorController {
     
     //Ruta para crear un nuevo producto
     @RequestMapping(value = "/ProductoProveedor/save", method = RequestMethod.POST)
-    public String saveProduct(@ModelAttribute("productoProveedor") ProductoProveedor productoProveedor, HttpServletRequest request){
+    public String saveProduct(@ModelAttribute("productoProveedor") ProductoProveedor productoProveedor, HttpServletRequest request, RedirectAttributes redirAttrs){
         //Guardamos el username del usuario activo  en la variable username
     	String username = request.getUserPrincipal().getName();
         //Se le asigna a userId el id de usuario que tiene la cuenta activa.
@@ -83,8 +84,11 @@ public class ProductoProveedorController {
     	Proveedor proveedor = ProveedorService.get(idProveedor);
     	productoProveedor.setIdProveedor(proveedor);
         service.save(productoProveedor);
-        return "redirect:/proveedor/ProductoProveedor";
-    }
+
+            redirAttrs.addFlashAttribute("message", "Producto guardado correctamente");
+            return "redirect:/proveedor/ProductoProveedor" ;
+        }
+
     
     //Editar un producto de proveedor
     @RequestMapping("/ProductoProveedor/edit/{id}")
