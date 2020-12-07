@@ -16,16 +16,6 @@
 </head>
 
 <body>
-<div layout:fragment="item_menu">
-	<!-- Aqui van las opciones del menu lateral -->
-	<!-- Nav Item - Dashboard -->
-	<li class="nav-item"><a class="nav-link" href="index.html"> <i
-			class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
-	</a></li>
-	<li class="nav-item"><a class="nav-link" href="index.html"> <i
-			class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
-	</a></li>
-</div>
 
 <div layout:fragment="main_content">
 	<!-- Aqui va el contenido principal -->
@@ -76,8 +66,7 @@
 
 								<a
 										th:href="@{ProductoProveedor/view/{id}(id=${product.idProductoProveedor})}"><button type="button" class="btn btn-success">Ver</button></a>
-								<a
-										th:href="@{/proveedor/ProductoProveedor/delete/{id}(id=${product.idProductoProveedor})}"><button type="button" class="btn btn-danger">Eliminar</button></a>
+								<a th:href="@{/proveedor/ProductoProveedor/delete/{id}(id=${product.idProductoProveedor})}"><button type="button" class="btn btn-danger">Eliminar</button></a>
 							</td>
 						</tr>
 						</tbody>

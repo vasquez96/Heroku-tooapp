@@ -24,19 +24,26 @@ public class testController {
 //       return "RequisicionAdminDepartamento/adminAceptarDenegar.html";
 //    }
 
-    @RequestMapping("/inventarioPrueba")
-    public String dashbordIncentario(){
-        return "InventarioArticulos/inventarioEmpresa.html";
-    }
+   // @RequestMapping("/inventarioPrueba")
+   // public String dashbordIncentario(){
+    //    return "InventarioArticulos/inventarioEmpresa.html";
+    //}
 
     @RequestMapping("/movimientoInventarioPrueba")
     public String dashbordMovimentoIncentario(){
         return "InventarioArticulos/movimientoInventario.html";
     }
-    @RequestMapping("/recibirArticuloPrueba")
-    public String dashbordRevibirArticulo(){
-        return "InventarioArticulos/recibirArticulo.html";
-    }
+    //@RequestMapping("/recibirArticuloPrueba")
+    //public String dashbordRevibirArticulo(){
+    //    return "InventarioArticulos/recibirArticulo.html";
+    //}
+
+   // @RequestMapping("/editar")
+   // public String dashbordRevibirArticulo2(){
+   //     return "InventarioArticulos/EditarArticulos.html";
+   // }
+
+
 }
 
 

@@ -14,16 +14,6 @@
 </head>
 
 <body>
-<div layout:fragment="item_menu">
-    <!-- Aqui van las opciones del menu lateral -->
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item"><a class="nav-link" href="index.html"> <i
-            class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
-    </a></li>
-    <li class="nav-item"><a class="nav-link" href="index.html"> <i
-            class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
-    </a></li>
-</div>
 
 <div layout:fragment="main_content">
     <!-- Aqui va el contenido principal -->
@@ -55,26 +45,7 @@
                                 </tr>
                                 </thead>
                                 <tbody id="tBody">
-                                <!--
-                                <tr>
-                                    <td>
-                                        <input type="number" name="cantidad[]" placeholder="Cantidad"/>
-                                    </td>
-                                    <td>
-                                        <select style="width: 100%" class="js-example-responsive col-xl-12 form-control"
-                                                name="articulo[]" id="articulo[]">
-                                            <option value="">Seleccione un artículo</option>
-                                            <option th:each="producto : ${listProductos}"
-                                                    th:value="${producto.idProductoProveedor}"
-                                                    th:text="${producto.nombreProductoProveedor}"></option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-danger button_eliminar_producto">
-                                            Eliminar
-                                        </button>
-                                    </td>
-                                </tr> -->
+
                                 </tbody>
                                 <tfoot>
                                 <tr>

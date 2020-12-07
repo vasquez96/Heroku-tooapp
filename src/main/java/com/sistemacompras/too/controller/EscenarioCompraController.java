@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.DecimalFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -31,6 +32,8 @@ public class EscenarioCompraController {
     private DetalleOrdenDeCompraService detalleOrdenDeCompraService;
     @Autowired
     private EmpleadoService empleadoService;
+    @Autowired
+    private NotaDeRemisionService notaDeRemisionService;
 
     //Método que muestra la requisicion aprobada para iniciar un escenario de compra
     @RequestMapping("/requisicion/view/{id}")
@@ -58,17 +61,45 @@ public class EscenarioCompraController {
         List<ProductoRequisicion> productoRequisicion = productoRequisicionService.listadoPorId(id);
         //Obtiene la lista de los productos de los diferentes proveedores
         List<ProductoProveedor> listProductoProveedor = productoProveedorService.listAll();
+        //Calculamos el precio con descuento de los productos y se lo mandamos a la vista
+        Map<Long, Double> precioConDescuento = calcularPrecioConDescuento(listProductoProveedor);
         //Manda los objetos a la vista
         mav.addObject("productoRequisicion", productoRequisicion);
         mav.addObject("requisicionArticulo", requisicionDeArticulo);
         mav.addObject("listProductoProveedor", listProductoProveedor);
+        mav.addObject("precioConDescuento", precioConDescuento);
         return mav;
     }//Fin del metodo showEscenarioCompra
 
     //Método que genera la orden de compra
     @RequestMapping(value = "/ordenCompra/save", method = RequestMethod.POST)
-    public String guardarRequisicion(@RequestParam(name = "idProductoProveedor") ArrayList<Long> idProductoProveedor,  HttpServletRequest request) {
+    public String guardarRequisicion(
+            @RequestParam(name = "idProductoProveedor") ArrayList<Long> idProductoProveedor,
+            @RequestParam(name = "idRequisicion") Long idRequisicion,
+            HttpServletRequest request) {
         System.out.println("\n**************CANTIDAD DE DATOS: " + idProductoProveedor.size());
+        //Obtiene la requisicion de articulo por medio del id
+        //RequisicionDeArticulo requisicionDeArticulo = requisicionDeArticuloService.get(idRequisicion);
+        //Obtiene la lista de los productos de la requisicion por medio del id de la requisicion
+        List<ProductoRequisicion> productoRequisicion = productoRequisicionService.listadoPorId(idRequisicion);
+        //System.out.println("Producto Requisicion: " + productoRequisicion.toString());
+        System.out.println("idProductoProveedor desde la orden de compra: " + idProductoProveedor.toString());
+        //Se creará un Map que tendrá (clave/valor) = (idProductoProveedor, cantidad) el cual servirá
+        //para ingresar la cantidad de artículos en el detalle de la orden de compra
+        Map<Long, Integer> cantidadArticulo = new HashMap<>();
+        //Llenando el Map
+        for (int i = 0; i < productoRequisicion.size(); i++) {
+            System.out.println("Creando el MAP");
+            ProductoProveedor productoProveedor = productoProveedorService.get(idProductoProveedor.get(i));
+            for (int j = 0; j < productoRequisicion.size(); j++) {
+                if (productoRequisicion.get(j).getIdProductoProveedor().getNombreProductoProveedor().equals(productoProveedor.getNombreProductoProveedor())) {
+                    System.out.println("*-*-*- ID del producto: " + idProductoProveedor.get(i) + " *-*-*- Cantidad: " + productoRequisicion.get(j).getCantidad());
+                    cantidadArticulo.put(idProductoProveedor.get(i), productoRequisicion.get(j).getCantidad());
+                    System.out.println("Imprimiendo el MAP " + cantidadArticulo);
+                }
+            }
+        }//Fin del llenando del map
+
         //Lista que almacena los id de los proveedores
         ArrayList<Long> idProveedores = new ArrayList<>();
         //Lista que almacena los productos de los proveedores
@@ -91,27 +122,34 @@ public class EscenarioCompraController {
         idProveedores = (ArrayList<Long>) idProveedores.stream().distinct().collect(Collectors.toList());
         //Imprimimos la lista utilizando la referencia al metodo println
         idProveedores.forEach(System.out::println);
-        
+
         //Lista que almacena los productos de los proveedores y que servirá para representar el valor en el map
         ArrayList<ProductoProveedor> productosPorPreveedor;
         //Estructura de datos que almacena el id del proveedor junto con sus productos (clave/valor)
         Map<Long, ArrayList<ProductoProveedor>> ordenDeCompra = new HashMap<>();
 
         //Vamos a separar todos los productos y los vamos a asignar junto al proveedor que corresponde cada producto
-        for (Long idProveedor: idProveedores) { //Inicio del foreach
+        for (Long idProveedor : idProveedores) { //Inicio del foreach
             productosPorPreveedor = new ArrayList<>(); //Limpia la lista de productosPorProveedor
             for (int j = 0; j < productosProveedores.size(); j++) {
                 //Verifica si el id del proveedor corresponde al id del proveedor que se encuentra dentro del producto
-                if (idProveedor == Long.parseLong(productosProveedores.get(j).getIdProveedor().getIdProveedor().toString())){
+                if (idProveedor == Long.parseLong(productosProveedores.get(j).getIdProveedor().getIdProveedor().toString())) {
                     productosPorPreveedor.add(productosProveedores.get(j)); //Agrega el producto a la listaproductosPorProveedor
                     //System.out.println("***Hello!");
                 }
             }
             ordenDeCompra.put(idProveedor, productosPorPreveedor); //Agregando el proveedor y sus productos (clave/valor)
             //for(Map.Entry<Long, ArrayList<ProductoProveedor> >ordenCompra : ordenDeCompra.entrySet()){
-                //System.out.println(ordenCompra.getKey() + " : " + ordenCompra.getValue());
+            //System.out.println(ordenCompra.getKey() + " : " + ordenCompra.getValue());
             //}
         } //Fin del ciclor foreach
+
+        //Imprimiendo Cantidad
+        for (Map.Entry<Long, Integer> ordenCompra3 : cantidadArticulo.entrySet()) {
+            System.out.println("---");
+            System.out.println(ordenCompra3.getKey() + " : " + ordenCompra3.getValue());
+            System.out.println("---");
+        }
 
         //Imprimiendo ordenDeCompra
         for(Map.Entry<Long, ArrayList<ProductoProveedor> >ordenCompra : ordenDeCompra.entrySet()){
@@ -119,9 +157,9 @@ public class EscenarioCompraController {
         }
 
         /*
-        * Proceso de creación de una orden de compra
-        * */
-        for(Map.Entry<Long, ArrayList<ProductoProveedor> >ordenCompra : ordenDeCompra.entrySet()){
+         * Proceso de creación de una orden de compra
+         * */
+        for (Map.Entry<Long, ArrayList<ProductoProveedor>> ordenCompra : ordenDeCompra.entrySet()) {
             System.out.println(ordenCompra.getKey() + " : " + ordenCompra.getValue());
             //Variable que nos permitirá crear una nueva orden de compra de acuerdo a la cantidad de proveedores
             OrdenDeCompra ordenDe_Compra = new OrdenDeCompra();
@@ -136,9 +174,37 @@ public class EscenarioCompraController {
             //Obtenemos el objeto empleado apartir del username del usuario activo
             Empleado empleado = empleadoService.getEmpleadoByUsername(username);
             ordenDe_Compra.setIdEmpleado(empleado);
+            //Caluclar el total de la compra
+            Map<Long, Double> precioFinalDeLosArticulos = calcularPrecioConDescuento(ordenCompra.getValue());
+            //Lista que almacena el precio por el que se compró el artículo
+            ArrayList<Double> precioCompraArticulo = new ArrayList<>();
+            double totalCompra = 0;
+            Integer j = 0;
+            for (Map.Entry<Long, Double> precio : precioFinalDeLosArticulos.entrySet()) {
+                System.out.println("****Obteniendo idProductoProveedor de ordenCompra: " + ordenCompra.getValue().get(j).getIdProductoProveedor());
+                Integer cantidad = cantidadProducto(cantidadArticulo, ordenCompra.getValue().get(j).getIdProductoProveedor());
+                //Suma el precio del articulo para calcular el total de la compra
+                totalCompra = totalCompra + precio.getValue() * cantidad;
+                //Agregando el precio final del artículo a una lista
+                precioCompraArticulo.add(precio.getValue());
+                j++;
+            }
+            //Poniendo el total de la compra en la orden de compra
+            ordenDe_Compra.setTotalCompra((float) totalCompra);
             //Guardamos la orden de compra
             ordenDeCompraService.save(ordenDe_Compra);
-
+            /*
+            * Creando la nota de remision
+            * */
+            //Creando un objeto de tipo nota de remision
+            NotasDeRemision notasDeRemision = new NotasDeRemision();
+            //Asignando el id de la orden de compra
+            notasDeRemision.setIdOrdenDeCompra(ordenDe_Compra);
+            //Se le asigna un estado a la nota de remision
+            // Pendiente = 0, Aceptada = 1;
+            notasDeRemision.setEstado(0);
+            //Guardando la nota de remision
+            notaDeRemisionService.save(notasDeRemision);
 
             /*
             *Una vez guardada la orden de compra procedemos a crear el detalle de la orden de compra
@@ -146,54 +212,61 @@ public class EscenarioCompraController {
 
             //Ciclo que recorre la cantidad productos que tendrá cada proveedor en su orden de compra
             for (int i = 0; i < ordenCompra.getValue().size(); i++) {
+                Integer cantidad = cantidadProducto(cantidadArticulo, ordenCompra.getValue().get(i).getIdProductoProveedor());
                 //Creamos un objeto de tipo DetalleOrdenDeCompra
                 DetalleOrdenDeCompra detalleOrdenDeCompra = new DetalleOrdenDeCompra();
                 //Asignamos la orden de compra que acabamos de crear a detalle orden de compra
                 detalleOrdenDeCompra.setIdOrdenDeCompra(ordenDe_Compra);
                 //Asignado el producto del proveedor a detalle orden de compra
                 detalleOrdenDeCompra.setIdProductoProveedor(ordenCompra.getValue().get(i));
+                //Asigna la cantidad del articulo a la orden de compra
+                detalleOrdenDeCompra.setCantidad(cantidad);
+                //Asignando el precio de los artículos con o sin descuento
+                detalleOrdenDeCompra.setPrecio(precioCompraArticulo.get(i));
                 //Guardando el detalle de la orden de compra
                 detalleOrdenDeCompraService.save(detalleOrdenDeCompra);
-            }//Fin del ciclo for
+            }//Fin del ciclo for que crea el detalle de la orden de compra
             //System.out.println("****ID ORDEN COMPRA: " + ordenDe_Compra.getIdOrdenDeCompra().toString());
         }//Fin de la creacion de una orden de compra
-
-
-
-
-
-//        if (bindingResult.hasErrors()) {
-//            return "RequisicionJefeDepartamento/crearRequisicion";
-//        } else {
-        //Creando una instancia de fecha para capturar la fecha del hoy
-        ////Date fecha = new Date();
-        //Creando una requisicion de articulo
-        ////RequisicionDeArticulo requisicionDeArticulo = new RequisicionDeArticulo();
-        //Modificando la fecha de la elaboracion de la requisicion
-        ////requisicionDeArticulo.setFechaPedido(fecha);
-        ///requisicionDeArticuloService.save(requisicionDeArticulo);
-        //System.out.println("Datos de cantidad: " + cantidad.size());
-        //System.out.println("Datos de articulo: " + articulo.size());
-        //Ciclo que recorre la cantidad de datos solicitdados para la requisicion
-        ////for (int i = 0; i < cantidad.size(); i++) { //Inicio ciclo for
-        //System.out.println("Valor de la cantidad del articulo: " + cantidad.get(i));
-        //System.out.println("Nombre de articulo: " + productoService.get(articulo.get(i)));
-        //Creando una instancia de producto requisicion
-        ////ProductoRequisicion productoRequisicion = new ProductoRequisicion();
-        ////ProductoProveedor productoProveedor = productoService.get(articulo.get(i));
-        //System.out.println("Nombre de articulo: " + productoProveedor.getNombreProductoProveedor());
-        //Agrengando la cantidad pedida del articulo
-        ////productoRequisicion.setCantidad(cantidad.get(i));
-        //Agregando el producto solicitado
-        ////productoRequisicion.setIdProductoProveedor(productoProveedor);
-        //Agregando la requisicion
-        ////productoRequisicion.setIdRequisicionDeArticulo(requisicionDeArticulo);
-        //System.out.println("DATOS DE PRODUCTO REQUISICION: " + productoRequisicion.toString());
-        //Guardando los productos de la requisicion
-        ////productoRequisicionService.save(productoRequisicion);
-        ////} //Fin ciclo for
         return "redirect:/empleado";
     }
+
+    /* Método que calcula el precio con descuento de los productos */
+    //(Clave/valor) = (idProductoProveedor, precioArticulo)
+    public Map<Long, Double> calcularPrecioConDescuento(List<ProductoProveedor> productoProveedor) {
+        //Se declara un ArrayList que almacena los precios cuando se ha aplicado el descuento
+        Map<Long, Double> precioConDescuento = new HashMap<>();
+        //Creando una variable que almacena la fecha actual
+        Date fechaHoy = new Date();
+        //Ciclo for que reccorre todos los productos del proveedor
+        for (int i = 0; i < productoProveedor.size(); i++) {
+            //Verifica si la fecha de hoy es mayor que la fecha de inicio de la promoción y si la fecha de hoy es menor a la fecha final de la promoción, en caso de ser verdadero aplica el descuento
+            if (fechaHoy.after(productoProveedor.get(i).getFechaVigenciaInicio()) && fechaHoy.before(productoProveedor.get(i).getFechaVigenciaFinal())) {
+                DecimalFormat dosDecimales = new DecimalFormat("#.##"); //Variable que redondea a dos decimales
+                double precioArticulo = productoProveedor.get(i).getPrecio(); //Obteniendo el precio
+                double descuento = Double.valueOf(dosDecimales.format(productoProveedor.get(i).getDescuento() / 100)); //Obteniendo el descuento
+                precioArticulo = Double.valueOf(dosDecimales.format(precioArticulo - precioArticulo * descuento)); //Realizando el cálculo del precio con descuento
+                precioConDescuento.put(productoProveedor.get(i).getIdProductoProveedor(), precioArticulo); //Agregando al ArrayList el precio con el descuento aplicado
+            } else { //Ya pasó la promoción
+                double precioArticulo = productoProveedor.get(i).getPrecio(); //Obteniendo el precio
+                precioConDescuento.put(productoProveedor.get(i).getIdProductoProveedor(), precioArticulo);
+            }
+        }//Fin del ciclo for
+        return precioConDescuento; //Retornando el ArrayList
+    } /* Fin del método que calcula el precio con descuento de los productos */
+
+    //Metodo que devuelve la cantidad de un articulo de la requisicion por medio del idDelProductoProveedor
+    public Integer cantidadProducto(Map<Long, Integer> productoRequisicion, Long idProductoProveedor) {
+        Integer cantidad = 0;
+        for (Map.Entry<Long, Integer> producto : productoRequisicion.entrySet()) {
+            if (idProductoProveedor == producto.getKey()) {
+                cantidad = producto.getValue();
+                System.out.println("----Cantidad de articulo: " + cantidad);
+                return cantidad;
+            }
+        }
+        return cantidad;
+    } //Fin del metodo
 
     //Listar las requisiciones aprobadas = 1.
     @RequestMapping("/requisicionAprobada")
@@ -205,15 +278,5 @@ public class EscenarioCompraController {
 
         return "EmpleadoDepartamentoCompras/index.html"; //Nombre del html
     }
-
-    //Listar las ordenes de compra
-    @RequestMapping("/ordenesDeCompras")
-    public String viewHomePage(Model model) {
-
-        //se crea una lista y se le asignan las requisiciones aprobadas, para eso es el metodo listSelected y el 1 para las aprobadas
-        List<OrdenDeCompra> ordenDeCompras = ordenDeCompraService.listAll();
-        model.addAttribute("listordenDeCompras", ordenDeCompras);
-
-        return "EmpleadoDepartamentoCompras/listadoOrdenCompras.html"; //Nombre del html
-    }
 }
+

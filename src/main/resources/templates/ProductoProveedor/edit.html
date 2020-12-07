@@ -1,211 +1,102 @@
 <!DOCTYPE html>
-<html lang="" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{base}">
 <head>
-<meta charset="UTF-8">
-<title>Edit Product</title>
+	<title>Productos proveedor</title>
+	<div layout:fragment="style_css">
+		<!-- Aqui va el codigo CSS extra que se quiera agregar -->
+
+
+		<link th:href="@{/vendor/datatables/dataTables.bootstrap4.min.css}"
+			  href="/static/vendor/datatables/dataTables.bootstrap4.min.css"
+			  rel="stylesheet" type="text/css">
+	</div>
 </head>
 
 <body>
 
-<!-- Page Wrapper -->
-<div id="wrapper">
-	<!-- Sidebar -->
-	<ul
-			class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
-			id="accordionSidebar">
-		<!-- Sidebar - Brand -->
-		<a
-				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="index.html">
-			<div class="sidebar-brand-icon rotate-n-15">
-				<i class="fas fa-laugh-wink"></i>
+<div layout:fragment="main_content">
+	<!-- Aqui va el contenido principal -->
+	<div class="row">
+		<div class="col-xl-12">
+			<div
+					class="card py-3 my-3 shadow-sm d-flex flex-row align-items-center justify-content-between">
+				<div class="col mr-2 text-dark">
+					<h2>Editar Producto de proveedor</h2>
+				</div>
 			</div>
-			<div class="sidebar-brand-text mx-3">Sistema de compras</div>
-		</a>
-
-		<!-- Divider -->
-		<hr class="sidebar-divider my-0">
-
-		<div>
-			<!-- Aqui van las opciones del menu lateral -->
-			<!-- Nav Item - Dashboard -->
-			<li class="nav-item"><a class="nav-link" href="index.html"> <i
-					class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
-			</a></li>
-			<li class="nav-item"><a class="nav-link" href="index.html"> <i
-					class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
-			</a></li>
 		</div>
+	</div>
+	<div class="row">
+		<div class="col-xl-12">
+			<div class="card shadow-sm my-3 py-3">
+				<div
+						class="table-responsive-lg table-responsive-sm table-responsive-md col-xl-12 col-md-12 col-sm-12">
+					<!-- ESCRIBIR CODIGO AQUÃ� -->
 
-		<!-- Divider -->
-		<hr class="sidebar-divider d-none d-md-block">
-
-		<!-- Sidebar Toggler (Sidebar) -->
-		<div class="text-center d-none d-md-inline">
-			<button class="rounded-circle border-0" id="sidebarToggle"></button>
-		</div>
-
-	</ul>
-	<!-- End of Sidebar -->
-
-	<!-- Content Wrapper -->
-	<div id="content-wrapper" class="d-flex flex-column">
-		<!-- Main Content -->
-		<div id="content">
-			<!-- Topbar -->
-			<nav
-					class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-				<!-- Sidebar Toggle (Topbar) -->
-				<button id="sidebarToggleTop"
-						class="btn btn-link d-md-none rounded-circle mr-3">
-					<i class="fa fa-bars"></i>
-				</button>
-
-				<!-- Topbar Navbar -->
-				<ul class="navbar-nav ml-auto">
-					<div class="topbar-divider d-none d-sm-block"></div>
-					<!-- Nav Item - User Information -->
-					<li class="nav-item dropdown no-arrow"><a
-							class="nav-link dropdown-toggle" href="#" id="userDropdown"
-							role="button" data-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false"> <span
-							class="mr-2 d-none d-lg-inline text-gray-600 small">admin</span>
-						<i class="fas fa-sign-out-alt"></i>
-					</a> <!-- Dropdown - User Information -->
-						<div
-								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-								aria-labelledby="userDropdown">
-							<a class="dropdown-item" href="#" data-toggle="modal"
-							   data-target="#logoutModal"> <i
-									class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-								Logout
-							</a>
-						</div>
-					</li>
-				</ul>
-			</nav>
-			<!-- End of Topbar -->
-
-<section class="content">
-	<div class="container-fluid">
-		<div class="row">
-			<!-- left column -->
-			<div class="col-md-6">
-				<!-- general form elements -->
-				<div class="card card-primary">
-					<div class="card-header">
-						<h3 class="card-title">Edit Product</h3>
-					</div>
-					<!-- /.card-header -->
-					<!-- form start -->
 					<form action="#" th:action="@{/proveedor/ProductoProveedor/save}"
 						  th:object="${productoProveedor}" method="post">
-					<div class="card-body">
-							<div class="form-group">
-								<label>Id del producto:</label>
-								<input type="text" th:field="*{idProductoProveedor}">
-							</div>
-						<br>
-							<div class="form-group">
-								<label>Nombre del producto:</label>
-								<input type="text" th:field="*{nombreProductoProveedor}">
-							</div>
-						<br>
-							<div class="form-group">
-								<label>Periodo de gracia:</label>
-								<input type="number" th:field="*{periodoDeGracia}">
-							</div>
-						<br>
-							<div class="form-group">
-								<label>Descuento:</label>
-								<input type="number" th:field="*{descuento}">
-							</div>
-						<br>
-							<div class="form-group">
-								<label>Numero de existencia:</label>
-								<input type="number" th:field="*{numExistencia}">
-							</div>
-						<br>
-							<div class="form-group">
-								<label>Cantidad de existencia:</label>
-								<input type="number" th:field="*{cantidadExistencia}">
-							</div>
-						<br>
-							<div class="form-group">
-								<label>Fecha de inicio de promocion:</label>
-								<input type="date" th:field="*{fechaVigenciaInicio}">
-							</div>
-						<br>
-							<div class="form-group">
-								<label>Fecha de final de promocion:</label>
-								<input type="date" th:field="*{fechaVigenciaFinal}">
-							</div>
-						<br>
-							<div class="form-group">
-								<label>Unidad:</label>
-								<input type="text" th:field="*{unidad}">
-							</div>
-					</div>
-						<br>
-						<div>
-							<button type="submit">Guardar</button>
-						</div>
+
+
+						<p>Id del producto:</p>
+						<input type="text" th:field="*{idProductoProveedor}">
+
+						<p>Nombre del producto:</p>
+						<input type="text" th:field="*{nombreProductoProveedor}">
+
+						<p>Periodo de gracia:</p>
+						<input type="number" th:field="*{periodoDeGracia}">
+
+						<p>Descuento:</p>
+						<input type="number" th:field="*{descuento}">
+
+						<p>Cantidad de existencia:</p>
+						<input type="number" th:field="*{numExistencia}">
+
+						<p>Cantidad de existencia:</p>
+						<input type="number" th:field="*{precio}">
+
+						<p>Fecha de inicio de promocion:</p>
+						<input type="date" th:field="*{fechaVigenciaInicio}">
+
+						<p>Fecha de final de promocion:</p>
+						<input type="date" th:field="*{fechaVigenciaFinal}">
+
+						<p>Unidad:</p>
+						<input type="text" th:field="*{unidad}">
+
+
+
+						<button type="submit" class="btn btn-warning">Editar</button>
+
+
 					</form>
 				</div>
 			</div>
 		</div>
 	</div>
-</section>
+</div>
+<div layout:fragment="style_js">
+	<!-- Aqui va el contenido JS extra -->
+
+	<script th:src="@{/vendor/datatables/jquery.dataTables.min.js}"
+			src="/static/vendor/datatables/jquery.dataTables.min.js"></script>
+
+	<script th:src="@{/vendor/datatables/dataTables.bootstrap4.min.js}"
+			src="/static/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
 
-		<!-- Footer -->
-		<footer class="sticky-footer bg-white">
-			<div class="container my-auto">
-				<div class="copyright text-center my-auto">
-					<span>Copyright &copy; Sistema de Compras 2020</span>
-				</div>
-			</div>
-		</footer>
-		<!-- End of Footer -->
+	<script th:src="@{/js/demo/datatables-demo.js}"
+			src="/static/js/demo/datatables-demo.js"></script>
 
-<!--
-		<h1>Edit Product</h1>
-		<br>
-		<form action="#" th:action="@{/proveedor/ProductoProveedor/save}"
-			th:object="${productoProveedor}" method="post">
+	<script>
+		$(document).ready(function() {
+			$('#myTable').DataTable();
+		});
+	</script>
+</div>
 
-
-			<p>Nombre del producto:</p>
-			<input type="text" th:field="*{nombreProductoProveedor}">
-
-			<p>Periodo de gracia:</p>
-			<input type="number" th:field="*{periodoDeGracia}">
-
-			<p>Descuento:</p>
-			<input type="number" th:field="*{descuento}">
-
-			<p>Cantidad de existencia:</p>
-			<input type="number" th:field="*{numExistencia}">
-			
-			<p>Cantidad de existencia:</p>
-			<input type="number" th:field="*{precio}">
-
-			<p>Fecha de inicio de promocion:</p>
-			<input type="date" th:field="*{fechaVigenciaInicio}">
-
-			<p>Fecha de final de promocion:</p>
-			<input type="date" th:field="*{fechaVigenciaFinal}">
-
-			<p>Unidad:</p>
-			<input type="text" th:field="*{unidad}">
-
-
-
-			<button type="submit">Guardar</button>
-
-
-		</form>
-	</div>
-	-->
 </body>
 </html>

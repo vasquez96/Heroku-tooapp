@@ -16,16 +16,6 @@
 </head>
 
 <body>
-<div layout:fragment="item_menu">
-    <!-- Aqui van las opciones del menu lateral -->
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item"><a class="nav-link" href="index.html"> <i
-            class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
-    </a></li>
-    <li class="nav-item"><a class="nav-link" href="index.html"> <i
-            class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
-    </a></li>
-</div>
 
 <div layout:fragment="main_content">
     <!-- Aqui va el contenido principal -->
@@ -65,10 +55,11 @@
                         </thead>
                         <tbody>
                         <tr th:each="requisicion : ${listRequisicionDeArticulo}">
+
                             <td th:text="${requisicion.idRequisicionDeArticulo}">ID</td>
                             <td th:text="${requisicion.elaboradoPor}">elaborado por</td>
                             <td th:text="${requisicion.autorizadoPor}">autorizado por</td>
-                            <td th:text="${requisicion.recibidoPor}">descuento</td>
+                            <td th:text="${requisicion.recibidoPor}">recibido por</td>
                             <td th:text="${requisicion.fechaPedido}">fecha de Pedido</td>
                             <td th:text="${requisicion.fechaEntrega}">fecha de Entrega</td>
                             <td>

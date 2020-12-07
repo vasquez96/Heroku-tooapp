@@ -37,6 +37,11 @@ public class AppController {
     public ModelAndView proveedorDashboard() {
         return new ModelAndView("dashboardProveedor");
     }
+
+    @GetMapping("/bodega")
+    public ModelAndView bodegueroDashboard() {
+        return new ModelAndView("dashboardBodeguero");
+    }
 }
 //
 //    @GetMapping("/user")

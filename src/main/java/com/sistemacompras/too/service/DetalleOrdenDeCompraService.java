@@ -1,6 +1,7 @@
 package com.sistemacompras.too.service;
 
 import com.sistemacompras.too.entity.DetalleOrdenDeCompra;
+import com.sistemacompras.too.entity.Empleado;
 import com.sistemacompras.too.entity.ProductoRequisicion;
 import com.sistemacompras.too.repository.DetalleOrdenDeCompraRepository;
 import com.sistemacompras.too.repository.ProductoRequisicionRepository;
@@ -37,5 +38,26 @@ public class DetalleOrdenDeCompraService {
     //Buscar listado detalle de la orden de compra por su id
     public List<DetalleOrdenDeCompra> listByIdDetalleOrdenCompra(Long id) {
         return detalleOrdenDeCompraRepository.findAllByIdDetalleOrdenDeCompra(id);
+    }
+
+    public List<DetalleOrdenDeCompra> listAllbyIdOrderCompra(Long id) {
+        //Se crea una lista de tipo detaale ordem de compra para que almacene TODOS las detallesOrdendesCompra
+        List<DetalleOrdenDeCompra> listDetalleOrdenDeCompra = new ArrayList();
+        //Se crea una lista que almacenara unicamente los detallesOrDeCompra que coincidan con la busqueda
+        List<DetalleOrdenDeCompra> listDetalleOrdenDeCompraReturn = new ArrayList();
+        //Se almacenan todos los detalles de la bd.
+        listDetalleOrdenDeCompra = listAll();
+        System.out.println("ESTO SE ESTA PMPRIMIENDO DESDE EL SERVICE");
+
+        for (DetalleOrdenDeCompra detalleOrdenDeCompra : listDetalleOrdenDeCompra) {
+            //Si el id de orden compra es igual
+            if(detalleOrdenDeCompra.getIdOrdenDeCompra().getIdOrdenDeCompra().toString().equals(id.toString()))
+            {
+                listDetalleOrdenDeCompraReturn.add(detalleOrdenDeCompra);
+                System.out.println("Entro al if");
+            }
+
+        }
+        return listDetalleOrdenDeCompraReturn;
     }
 }

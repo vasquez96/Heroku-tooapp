@@ -23,16 +23,6 @@
 </head>
 
 <body>
-<div layout:fragment="item_menu">
-    <!-- Aqui van las opciones del menu lateral -->
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item"><a class="nav-link" href="index.html"> <i
-            class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
-    </a></li>
-    <li class="nav-item"><a class="nav-link" href="index.html"> <i
-            class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
-    </a></li>
-</div>
 
 <div layout:fragment="main_content">
     <!-- Aqui va el contenido principal -->
@@ -71,8 +61,7 @@
                         </thead>
                         <tbody> <!-- Cuerpo de la tabla requisición de artículo -->
                         <tr th:each="requisicion : ${productoRequisicion}">
-                            <td
-                                    th:text="${requisicion.idProductoProveedor.nombreProductoProveedor}">
+                            <td th:text="${requisicion.idProductoProveedor.nombreProductoProveedor}">
                                 nombreProductoProveedor
                             </td>
                             <td th:text="${requisicion.cantidad}">cantidad</td>
@@ -86,10 +75,11 @@
                     <!-- Inicio de la tabla de los productos -->
                     <form id="formularioOrdenCompra" action="#" th:action="@{/empleado/ordenCompra/save}"
                           method="post">
+                        <input type="hidden" th:name="idRequisicion" th:value="${productoRequisicion.get(0).getIdRequisicionDeArticulo().getIdRequisicionDeArticulo()}">
                         <table id="myTable">
                             <thead>
                             <tr> <!-- Encabezdo de la tabla de los productos -->
-                                <th></th>
+                                <th>Acción</th>
                                 <th>Proveedor</th>
                                 <th>Nombre del producto</th>
                                 <th>Precio</th>
@@ -97,6 +87,7 @@
                                 <th>Fecha inicio</th>
                                 <th>Fecha de fin</th>
                                 <th>Periodo de gracia</th>
+                                <th>Precio con descuento</th>
                             </tr> <!-- Fin encabezado de la tabla de los productos -->
                             </thead>
                             <tbody> <!-- Cuerpo de la tabla de los productos -->
@@ -107,13 +98,21 @@
                                            id="idProductoProveedor" th:value="${product.getIdProductoProveedor()}">
                                 </td>
 
-                                <td th:text="${product.idProveedor.getNombreProveedor() + ' ' + product.idProveedor.getApellidoProveedor()}"></td>
+                                <td>
+                                    <p th:text="${product.idProveedor.getNombreProveedor()}"></p>
+                                    <p th:text="${product.idProveedor.getApellidoProveedor()}"></p>
+                                </td>
                                 <td th:text="${product.nombreProductoProveedor}"></td>
                                 <td th:text="'$ '+ ${product.precio}"></td>
                                 <td th:text="${product.descuento} + ' %'"></td>
                                 <td th:text="${product.fechaVigenciaInicio}"></td>
                                 <td th:text="${product.fechaVigenciaFinal}"></td>
                                 <td th:text="${product.periodoDeGracia} + ' días'"></td>
+                                <div th:each="productoConDescuento : ${precioConDescuento.entrySet()}">
+                                    <div th:if="${product.getIdProductoProveedor() == productoConDescuento.getKey()}">
+                                        <td th:text="'$ ' + ${productoConDescuento.getValue()}"></td>
+                                    </div>
+                                </div>
                             </tr>
 
                             </tbody> <!-- Fin cuerpo de la tabla de los productos -->

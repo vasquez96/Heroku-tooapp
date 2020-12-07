@@ -21,6 +21,7 @@ public class RequisicionDeArticuloService {
         return requisicionDeArticuloRepository.findAll();
     }
 
+    //Devuelve las notas segun su estado
     public List<RequisicionDeArticulo> listSelected(int estado) {
         //Se crea una lista con todas las requisiciones
         List<RequisicionDeArticulo> listRequisicionDeArticuloall = requisicionDeArticuloService.listAll();

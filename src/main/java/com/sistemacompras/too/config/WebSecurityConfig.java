@@ -43,6 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/proveedor/**").access("hasRole('PROVEEDOR')")
                 .antMatchers("/jefe/**").access("hasRole('JEFE')")
                 .antMatchers("/empleado/**").access("hasRole('EMPLEADO')")
+                .antMatchers("/bodega/**").access("hasRole('BODEGUERO')")
                 .anyRequest().authenticated() //Cualquier otra ruta que no está arriba debe ser autenticada
                 .and()
                 .formLogin()

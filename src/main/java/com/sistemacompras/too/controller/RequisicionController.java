@@ -71,7 +71,7 @@ public class RequisicionController {
     }
 
     //Listar las requisiciones segun el departamento al que pertenezca el usuario.
-    @RequestMapping("/requisicion")
+    @GetMapping("/requisicion")
     public String viewHomePage(Model model,  HttpServletRequest request){
         //Guardamos el username del usuario activo  en la variable username
         String username = request.getUserPrincipal().getName();
@@ -239,6 +239,8 @@ public class RequisicionController {
             //Guardando los productos de la requisicion
             //Agregando la requisicion
             productoRequisicion.setIdRequisicionDeArticulo(requisicionDeArticulo);
+            requisicionDeArticulo.setEstado(0);
+            requisicionDeArticulo.setObservacion("");
             productoRequisicionService.save(productoRequisicion);
         } //Fin ciclo for
         return "redirect:/jefe/requisicion";
