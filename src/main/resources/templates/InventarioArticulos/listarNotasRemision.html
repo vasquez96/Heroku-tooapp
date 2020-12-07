@@ -36,11 +36,11 @@
                     <!-- ESCRIBIR CODIGO AQUÍ -->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#pendiente" role="tab"
-                               aria-controls="home" aria-selected="true">Pendientes</a>
+                            <a class="nav-link active" id="pendiente-tab" data-toggle="tab" href="#pendiente" role="tab"
+                               aria-controls="pendiente" aria-selected="true">Pendientes</a>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#aprobada" role="tab"
+                            <a class="nav-link" id="aprobada-tab" data-toggle="tab" href="#aprobada" role="tab"
                                aria-controls="aprobada" aria-selected="false">Aprobadas</a>
                         </li>
                     </ul>
@@ -48,7 +48,7 @@
                         <!-- Lista de notas de remision pendientes -->
                         <div class="tab-pane fade show active" id="pendiente" role="tabpanel"
                              aria-labelledby="pendiente-tab">
-                            <table class="table" id="myTable">
+                            <table class="table" id="notasRemisionPendientes">
                                 <thead>
                                 <tr>
                                     <th>#</th>
@@ -58,32 +58,28 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <div th:with="i=0">
-                                    <tr th:each="notaDeRemision : ${notasDeRemisions}">
-                                        <!-- Estado de la nota de remision pendiente -->
-                                        <div th:if="${notaDeRemision.getEstado() == 0}">
-                                            <div th:with="i=${i+1}">
-                                                <td th:text="${i}"></td>
-                                                <td>
-                                                    <p th:text="${notaDeRemision.getIdOrdenDeCompra().getIdProveedor().getNombreProveedor()}"></p>
-                                                    <p th:text="${notaDeRemision.getIdOrdenDeCompra().getIdProveedor().getApellidoProveedor()}"></p>
-                                                </td>
-                                                <td th:text="'$ ' + ${notaDeRemision.getIdOrdenDeCompra().getTotalCompra()}"></td>
-                                                <td>
-                                                    <a th:href="@{/bodega/remisiones/view/{id}(id=${notaDeRemision.getIdOrdenDeCompra().getIdOrdenDeCompra()})}">
-                                                        <button type="button" class="btn btn-success">Ver</button>
-                                                    </a>
-                                                </td>
-                                            </div>
-                                        </div>
-                                    </tr>
-                                </div>
+                                <tr th:each="notaDeRemision, numero : ${notasDeRemisions}">
+                                    <!-- Estado de la nota de remision pendiente -->
+                                    <div th:if="${notaDeRemision.getEstado() == 0}">
+                                        <td th:text="${numero.count}"></td>
+                                        <td>
+                                            <p th:text="${notaDeRemision.getIdOrdenDeCompra().getIdProveedor().getNombreProveedor()}"></p>
+                                            <p th:text="${notaDeRemision.getIdOrdenDeCompra().getIdProveedor().getApellidoProveedor()}"></p>
+                                        </td>
+                                        <td th:text="'$ ' + ${notaDeRemision.getIdOrdenDeCompra().getTotalCompra()}"></td>
+                                        <td>
+                                            <a th:href="@{/bodega/remisiones/view/{id}(id=${notaDeRemision.getIdOrdenDeCompra().getIdOrdenDeCompra()})}">
+                                                <button type="button" class="btn btn-success">Ver</button>
+                                            </a>
+                                        </td>
+                                    </div>
+                                </tr>
                                 </tbody>
                             </table>
                         </div> <!-- Fin lista de notas de remision pendientes -->
                         <!-- Lista de notas de remision aprobadas -->
                         <div class="tab-pane fade" id="aprobada" role="tabpanel" aria-labelledby="aprobada-tab">
-                            <table class="table" id="myTableAprobada">
+                            <table class="table" id="notasRemisionAprobadas">
                                 <thead>
                                 <tr>
                                     <th>#</th>
@@ -93,26 +89,22 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <div th:with="i=0">
-                                    <tr th:each="notaDeRemision : ${notasDeRemisions}">
-                                        <!-- Estado de la nota de remision pendiente -->
-                                        <div th:if="${notaDeRemision.getEstado() == 1}">
-                                            <div th:with="i=${i+1}">
-                                                <td th:text="${i}"></td>
-                                                <td>
-                                                    <p th:text="${notaDeRemision.getIdOrdenDeCompra().getIdProveedor().getNombreProveedor()}"></p>
-                                                    <p th:text="${notaDeRemision.getIdOrdenDeCompra().getIdProveedor().getApellidoProveedor()}"></p>
-                                                </td>
-                                                <td th:text="${notaDeRemision.getIdOrdenDeCompra().getTotalCompra()}"></td>
-                                                <td>
-                                                    <a th:href="@{/bodega/remisiones/view/{id}(id=${notaDeRemision.getIdOrdenDeCompra().getIdOrdenDeCompra()})}">
-                                                        <button type="button" class="btn btn-success">Ver</button>
-                                                    </a>
-                                                </td>
-                                            </div>
-                                        </div>
-                                    </tr>
-                                </div>
+                                <tr th:each="notaDeRemision, numero : ${notasDeRemisions}">
+                                    <!-- Estado de la nota de remision pendiente -->
+                                    <div th:if="${notaDeRemision.getEstado() == 1}">
+                                        <td th:text="${numero.count}"></td>
+                                        <td>
+                                            <p th:text="${notaDeRemision.getIdOrdenDeCompra().getIdProveedor().getNombreProveedor()}"></p>
+                                            <p th:text="${notaDeRemision.getIdOrdenDeCompra().getIdProveedor().getApellidoProveedor()}"></p>
+                                        </td>
+                                        <td th:text="${notaDeRemision.getIdOrdenDeCompra().getTotalCompra()}"></td>
+                                        <td>
+                                            <a th:href="@{/bodega/remisiones/view/{id}(id=${notaDeRemision.getIdOrdenDeCompra().getIdOrdenDeCompra()})}">
+                                                <button type="button" class="btn btn-success">Ver</button>
+                                            </a>
+                                        </td>
+                                    </div>
+                                </tr>
                                 </tbody>
                             </table>
                         </div> <!-- Lista de notas de remision aprobadas -->
@@ -137,7 +129,8 @@
 
     <script>
         $(document).ready(function () {
-            $('#myTable').DataTable();
+            $('#notasRemisionPendientes').DataTable();
+            $('#notasRemisionAprobadas').DataTable();
         });
     </script>
 </div>
