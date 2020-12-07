@@ -75,29 +75,33 @@
                         <!-- *** Precios vigentes de los artículos por proveedor *** -->
                         <div class="tab-pane fade" id="precioVigente" role="tabpanel"
                              aria-labelledby="precioVigente-tab">
-                            <table class="table" id="myTableAprobada">
+                            <table class="table" id="precioVigenteTabla">
                                 <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>Proveedor</th>
+                                    <th>Producto</th>
                                     <th>Fecha inicio de la promoción</th>
                                     <th>Fecha fin de la promoción</th>
                                     <th>Precio vigente</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <div th:with="i=0">
-                                    <tr th:each="productoProveedorPrecioVigente : ${productoProveedorPrecioVigentes}">
-                                        <td th:text="${i+1}"></td>
+                                    <tr th:each="productoProveedorPrecioVigente, numero : ${productoProveedorPrecioVigentes}">
+                                        <td th:text="${numero.count}"></td>
                                         <td>
                                             <p th:text="${productoProveedorPrecioVigente.getIdProveedor().getNombreProveedor()}"></p>
                                             <p th:text="${productoProveedorPrecioVigente.getIdProveedor().getApellidoProveedor()}"></p>
                                         </td>
+                                        <td th:text="${productoProveedorPrecioVigente.getNombreProductoProveedor()}"></td>
                                         <td th:text="${productoProveedorPrecioVigente.getFechaVigenciaInicio()}"></td>
                                         <td th:text="${productoProveedorPrecioVigente.getFechaVigenciaFinal()}"></td>
-                                        <td th:text="${productoProveedorPrecioVigente.getPrecio()}"></td>
+                                        <div th:each="productoConDescuento : ${preciosConDescuento.entrySet()}">
+                                            <div th:if="${productoProveedorPrecioVigente.getIdProductoProveedor() == productoConDescuento.getKey()}">
+                                                <td th:text="'$ ' + ${productoConDescuento.getValue()}"></td>
+                                            </div>
+                                        </div>
                                     </tr>
-                                </div>
                                 </tbody>
                             </table>
                         </div> <!-- *** Fin precios vigentes de los artículos por proveedor *** -->
@@ -136,7 +140,14 @@
 
     <script>
         $(document).ready(function () {
-            $('#myTable').DataTable();
+            $('#precioVigenteTabla').DataTable({
+                //Quitando el ordenamiento de las columnas
+                "aaSorting": [],
+                "aoColumnDefs": [{
+                    'bSortable': false,
+                    'aTargets': [0, 1, 2, 3, 4]
+                }]
+            });
         });
     </script>
 </div>

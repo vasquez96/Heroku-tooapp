@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin")
@@ -26,6 +27,8 @@ public class ReportesController {
     private DepartamentoService departamentoService;
     @Autowired
     private ProductoRequisicionService productoRequisicionService;
+    @Autowired
+    private EscenarioCompraController escenarioCompraController;
 
     //Metodo que muestra los reportes
     @RequestMapping("/reportes")
@@ -39,11 +42,10 @@ public class ReportesController {
         //Creamos una lista que almacenará los productos de los proveedores que se encuentren en el rango
         // de la fecha de hoy y no haya terminado la promoción
         List<ProductoProveedor> productoProveedorPrecioVigentes = null;
-        for (int i = 0; i < productoProveedorTodos.size(); i++) {
-            if (fechaActual.after(productoProveedorTodos.get(i).getFechaVigenciaInicio()) && fechaActual.before(productoProveedorTodos.get(i).getFechaVigenciaFinal())) {
-                productoProveedorPrecioVigentes.add((ProductoProveedor) productoProveedorTodos);
-            }
-        }
+
+        /* FIN REPORTE DE PRECIOS VIGENTES DE ARTÍCULOS POR PROVEEDOR */
+        //Precio con descuento
+        Map<Long, Double> preciosConDescuento = escenarioCompraController.calcularPrecioConDescuento(productoProveedorTodos);
         //Manda los objetos a la vista
 
         //Se crea una lista de tipo DepartamentoMap para ingresar los id y nombre de todos los departamentos
@@ -67,13 +69,19 @@ public class ReportesController {
                 }
             }
             departamentoMap.get(i).setNumeroDeVentas(acumulador);
+            System.out.println(departamentoMap.get(i).toString());
             acumulador = 0;
             i ++;
         }
 
+        System.out.println("Corrio: " + i);
         //Enviando a la vista la lista de los productos por proveedor con su precio vigente
         mav.addObject("productoProveedorPrecioVigentes", productoProveedorPrecioVigentes);
         mav.addObject("departamentoMap", departamentoMap);
+        mav.addObject("productoProveedorPrecioVigentes", productoProveedorTodos);
+        mav.addObject("preciosConDescuento", preciosConDescuento);
         return mav;
     }
+
+
 }
