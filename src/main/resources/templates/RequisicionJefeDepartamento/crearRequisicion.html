@@ -10,6 +10,9 @@
         <link th:href="@{/vendor/select2/css/select2.css}"
               href="/static/vendor/select2/css/select2.css" rel="stylesheet"
               type="text/css">
+
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     </div>
 </head>
 
@@ -33,6 +36,20 @@
                 <div
                         class="table-responsive-lg table-responsive-sm table-responsive-md col-xl-12 col-md-12 col-sm-12">
                     <!-- ESCRIBIR CODIGO AQU� -->
+                    <!-- Mensaje de error al crear/editar una requisición -->
+                    <div th:if="${message}">
+                        <input type="hidden" id="mensaje" th:value="${message}">
+                        <script>
+                            var mensaje = document.getElementById('mensaje').value;
+                            swal({
+                                    title: mensaje,
+                                    icon: "error",
+                                }
+                            );
+                        </script>
+                    </div>
+                    <!-- Fin del mensaje de error al crear/editar una requisición -->
+
                     <div class="container">
                         <h1> Lista de artículos </h1>
                         <form id="tabla" action="#" th:action="@{/jefe/requisicion/save}" method="post">

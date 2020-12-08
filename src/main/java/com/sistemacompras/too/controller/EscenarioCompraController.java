@@ -207,6 +207,14 @@ public class EscenarioCompraController {
             notaDeRemisionService.save(notasDeRemision);
 
             /*
+             *Cambiando el estado de la requisción de artículo
+             */
+            RequisicionDeArticulo requisicionDeArticulo = requisicionDeArticuloService.get(idRequisicion);
+            //El estado de la requisción se cambia a 3 que significa que se ha realizado una orden de compra de esa requisción
+            requisicionDeArticulo.setEstado(3);
+            requisicionDeArticuloService.save(requisicionDeArticulo);
+
+            /*
             *Una vez guardada la orden de compra procedemos a crear el detalle de la orden de compra
             */
 
