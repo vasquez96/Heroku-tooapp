@@ -19,6 +19,9 @@
         <link th:href="@{/vendor/datatables/dataTables.bootstrap4.min.css}"
               href="/static/vendor/datatables/dataTables.bootstrap4.min.css"
               rel="stylesheet" type="text/css">
+
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     </div>
 </head>
 
@@ -47,6 +50,20 @@
                 <div
                         class="table-responsive-lg table-responsive-sm table-responsive-md col-xl-12 col-md-12 col-sm-12">
                     <!-- ESCRIBIR CODIGO AQUÍ -->
+                    <!-- Mensaje de éxito al crear una orden compra-->
+                    <div th:if="${message}">
+                        <input type="hidden" id="mensaje" th:value="${message}">
+                        <script>
+                            var mensaje = document.getElementById('mensaje').value;
+                            swal({
+                                    title: mensaje,
+                                    icon: "error",
+                                }
+                            );
+                        </script>
+                    </div>
+                    <!-- Fin del mensaje de éxito al crear una orden de compra -->
+
                     <div class="d-flex flex-row">
                         <p class="p-2"><strong>Fecha de pedido: </strong></p> <!-- Fecha de pedido -->
                         <p class="p-2" th:text="*{requisicionArticulo.getFechaPedido()}"></p>
