@@ -68,7 +68,10 @@
                             <td th:text="${requisicion.fechaPedido}">fecha de Pedido</td>
                             <td th:text="${requisicion.fechaEntrega}">fecha de Entrega</td>
                             <td>
+                                <div th:if="${requisicion.estado == 0 || requisicion.estado == 2"}">
                                 <a th:href="@{requisicion/edit/{id}(id=${requisicion.idRequisicionDeArticulo})}"><button type="button" class="btn btn-warning">Editar</button></a>
+                                </div>
+
                                 <a th:href="@{requisicion/view/{id}(id=${requisicion.idRequisicionDeArticulo})}"><button type="button" class="btn btn-success">Ver</button></a>
                                 <a th:href="@{requisicion/eliminar/{id}(id=${requisicion.idRequisicionDeArticulo})}"><button type="button" class="btn btn-danger">Eliminar</button></a>
                             </td>
