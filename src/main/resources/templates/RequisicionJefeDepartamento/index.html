@@ -62,6 +62,7 @@
                                 <span th:if="${requisicion.estado == 0}" class="badge badge-primary">Pendiente</span>
                                 <span th:if="${requisicion.estado == 2}" class="badge badge-danger">Denegado</span>
                                 <span th:if="${requisicion.estado == 1}" class="badge badge-success">Aprobado</span>
+                                <span th:if="${requisicion.estado == 3}" class="badge badge-secondary">Realizada</span>
                             </td>
 
                             <td th:text="${requisicion.fechaPedido}">fecha de Pedido</td>
