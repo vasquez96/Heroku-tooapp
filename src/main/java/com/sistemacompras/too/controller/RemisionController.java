@@ -98,7 +98,7 @@ public class RemisionController {
                         //Se toma la cantidad de productos que hay en bd y se le suma la cantidad entrante.
                         int nuevaCantidad = productoBD.getCantidad() + productoEntrante.getCantidad();
                         //Al producto de la bd se le suma lo nuevo
-                        productoBD.setCantidad(nuevaCantidad);
+                      // productoBD.setCantidad(nuevaCantidad);
                         service.save(productoBD);
                         i++;
                         /*
@@ -143,7 +143,7 @@ public class RemisionController {
             if (i == 0)
             {
                 //Esta cantidad se debe cambiar por la nueva
-                productosAGuardar.setCantidad(productoEntrante.getCantidad());
+               // productosAGuardar.setCantidad(productoEntrante.getCantidad());
                 productosAGuardar.setMax(200);
                 productosAGuardar.setMin(150);
                 productosAGuardar.setNombre(productoEntrante.getIdProductoProveedor().getNombreProductoProveedor());
