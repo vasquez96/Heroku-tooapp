@@ -88,12 +88,37 @@
                             <td>
                                 <div th:if="${requisicion.estado == 0 || requisicion.estado == 2}">
                                     <a th:href="@{requisicion/edit/{id}(id=${requisicion.idRequisicionDeArticulo})}"><button type="button" class="btn btn-warning">Editar</button></a>
+                                </div>
                                 <div th:if="${requisicion.estado == 0 || requisicion.estado == 2}">
                                 <a th:href="@{requisicion/edit/{id}(id=${requisicion.idRequisicionDeArticulo})}"><button type="button" class="btn btn-warning">Editar</button></a>
                                 </div>
 
                                 <a th:href="@{requisicion/view/{id}(id=${requisicion.idRequisicionDeArticulo})}"><button type="button" class="btn btn-success">Ver</button></a>
-                                <a th:href="@{requisicion/eliminar/{id}(id=${requisicion.idRequisicionDeArticulo})}"><button type="button" class="btn btn-danger">Eliminar</button></a>
+
+                                <!-- Modal para eliminar productos-->
+                                <div th:attr="id='DeleteModal'+${requisicion.idRequisicionDeArticulo}" class="modal fade text-danger" role="dialog">
+                                    <div class="modal-dialog ">
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="text-danger">Eliminar Requisición</h4>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p class="text-center text-dark"><i class="fas fa-exclamation-triangle text-danger" style="font-size: 30px"></i> ¿Está seguro que desea eliminar este elemento?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <center>
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                    <a th:href="@{requisicion/eliminar/{id}(id=${requisicion.idRequisicionDeArticulo})}">
+                                                        <button type="button" class="btn btn-danger" th:attr="id='/jefe/requisicion/eliminar/'+${requisicion.idRequisicionDeArticulo}">Eliminar</button>
+                                                    </a>
+                                                </center>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" th:attr="data-target='#DeleteModal'+${requisicion.idRequisicionDeArticulo}">Eliminar</button>
                             </td>
                         </tr>
                         </tbody>

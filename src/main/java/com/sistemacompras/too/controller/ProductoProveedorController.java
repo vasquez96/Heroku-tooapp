@@ -110,8 +110,9 @@ public class ProductoProveedorController {
     
     //Eliminar un producto de proveedor
     @RequestMapping("/ProductoProveedor/delete/{id}")
-    public String deleteProduct(@PathVariable(name = "id") Long id){
+    public String deleteProduct(@PathVariable(name = "id") Long id,RedirectAttributes redirAttrs){
         service.delete(id);
-        return "redirect:/proveedor/ProductoProveedor";
+        redirAttrs.addFlashAttribute("message", "Producto eliminado correctamente");
+        return "redirect:/proveedor/ProductoProveedor" ;
     }
 }

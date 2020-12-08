@@ -255,7 +255,7 @@ public class RequisicionController {
     }
     //Eliminar requisicion
     @RequestMapping("/requisicion/eliminar/{id}")
-    public String deleteRequisicion(@PathVariable(name = "id") Long id){
+    public String deleteRequisicion(@PathVariable(name = "id") Long id,RedirectAttributes redirAttrs){
 
         List<ProductoRequisicion> productoRequisicion = productoRequisicionService.listadoPorId(id);
 
@@ -265,6 +265,7 @@ public class RequisicionController {
         }
 
         requisicionDeArticuloService.delete(id);
+        redirAttrs.addFlashAttribute("message", "Requisición eliminada con éxito");
         return "redirect:/jefe/requisicion";
     }
 
@@ -273,7 +274,7 @@ public class RequisicionController {
     public String editarRequisicion(
             @RequestParam(name = "cantidad") ArrayList<Integer> cantidad,
             @RequestParam(name = "articulo") ArrayList<Long> articulo,
-            @RequestParam(name = "isss") Long id) {
+            @RequestParam(name = "isss") Long id,RedirectAttributes redirAttrs) {
         System.out.println("Id de la requisicio: " + id);
         System.out.println("Buscando por id-------- ");
         //Buscando los productos de la requisicion que corresponden al id de la requisicion
@@ -304,6 +305,7 @@ public class RequisicionController {
             requisicionDeArticulo.setObservacion("");
             productoRequisicionService.save(productoRequisicion);
         } //Fin ciclo for
+        redirAttrs.addFlashAttribute("message", "Requisición editada con éxito");
         return "redirect:/jefe/requisicion";
     }
 
