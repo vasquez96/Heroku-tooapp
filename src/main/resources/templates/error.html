@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es" layout:decorate="~{base.html}"
+      xmlns:form="http://www.w3.org/1999/html"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Error</title>
+    <div layout:fragment="style_css">
+        <!-- Aqui va el codigo CSS extra que se quiera agregar -->
+        <link href="/static/vendor/select2/css/select2.css"
+              rel="stylesheet" th:href="@{/vendor/select2/css/select2.css}"
+              type="text/css">
+    </div>
+</head>
+
+<body>
+
+<div layout:fragment="main_content">
+    <!-- Aqui va el contenido principal -->
+    <div class="row">
+        <div class="col-xl-12">
+            <div
+                    class="card py-3 my-3 shadow-sm d-flex flex-row align-items-center justify-content-between">
+                <div class="col mr-2 text-dark">
+                    <h2>Error</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card shadow-sm my-3 py-3">
+                <div
+                        class="table-responsive-lg table-responsive-sm table-responsive-md col-xl-12 col-md-12 col-sm-12">
+                    <!-- ESCRIBIR CODIGO AQU� -->
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
+                    <div class="text-center">
+                        <div class="error mx-auto" data-text="404">404</div>
+                        <p class="lead text-gray-800 mb-5">Pagina no encontrada</p>
+                        <p class="text-gray-500 mb-0">Intenta de nuevo...</p>
+                    </div>
+
+                    </div>
+                    <!-- /.container-fluid -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div layout:fragment="style_js">
+    <!-- Aqui va el contenido JS extra -->
+    <script src="/static/vendor/select2/js/select2.js"
+            th:src="@{/vendor/select2/js/select2.js}">
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('.js-example-basic-single').select2();
+        });
+        $(".js-example-responsive").select2({
+            width: 'resolve' // need to override the changed default
+        });
+    </script>
+    <script id="nuevaFila" type="text/html">
+        <tr>
+            <td>
+                <input type="number" th:name="cantidad" name="cantidad[]"
+                       placeholder="Cantidad"/>
+            </td>
+            <td>
+                <select style="width: 100%" class="js-example-responsive col-xl-12 form-control" th:name="articulo"
+                        name="articulo[]" id="articulo[]">
+                    <option value="">Seleccione un artículo</option>
+                    <option th:each="producto : ${listProductos}"
+                            th:value="${producto.idProductoProveedor}"
+                            th:text="${producto.nombreProductoProveedor}"></option>
+                </select>
+            </td>
+            <td>
+                <button type="button" class="btn btn-danger button_eliminar_producto"> Eliminar</button>
+            </td>
+        </tr>
+    </script>
+    <script th:inline="javascript">
+        function cantidadDeArticulos() {
+            //Recuperando la cantidad de articulos que posee la requisicion
+            var cantidadDeArticulosDeLaRequisicion = [[${productoRequisicion.size()}]];
+            return cantidadDeArticulosDeLaRequisicion;
+        }
+    </script>
+    <script type="text/javascript">
+        function productos() {
+            //Llamando al metodo que devuelve la cantidad de articulos que posee la requisicion
+            var cantidadDeArticulosDeLaRequisicion = cantidadDeArticulos();
+            console.log(cantidadDeArticulosDeLaRequisicion);
+            var tbody = $('#lista_productos tbody');
+            var fila_contenido = tbody.find('tr').first().html();
+            //Verifica si la cantidad de articulos de la requisicion es mayor que cero
+            // if (cantidadDeArticulosDeLaRequisicion > 0) {
+            //     for (var i = 0; i <= cantidadDeArticulosDeLaRequisicion; i++) {
+            //         //Agrega las filas necesarias
+            //         var fila = document.getElementById('nuevaFila').innerHTML;
+            //         $('#tBody').append(fila);
+            //     }
+            // }
+            //Agregar fila nueva.
+            $('#lista_productos .button_agregar_producto').click(function () {
+                var fila = document.getElementById('nuevaFila').innerHTML;
+                $('#tBody').append(fila);
+                // var fila_nueva = "<tr></tr>";
+                // fila_nueva.append(fila_contenido);
+                // tbody.append(fila_nueva);
+            });
+            //Eliminar fila.
+            $('#lista_productos').on('click', '.button_eliminar_producto', function () {
+                $(this).parents('tr').eq(0).remove();
+            });
+        }
+
+        $(document).ready(function () {
+            productos();
+        });
+    </script>
+</div>
+
+</body>
+</html>

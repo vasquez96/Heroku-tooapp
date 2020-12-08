@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base}">
+<head>
+    <title>Reportes</title>
+    <div layout:fragment="style_css">
+        <!-- Aqui va el codigo CSS extra que se quiera agregar -->
+
+
+        <link th:href="@{/vendor/datatables/dataTables.bootstrap4.min.css}"
+              href="/static/vendor/datatables/dataTables.bootstrap4.min.css"
+              rel="stylesheet" type="text/css">
+    </div>
+</head>
+
+<body>
+
+<div layout:fragment="main_content">
+    <!-- Aqui va el contenido principal -->
+    <div class="row">
+        <div class="col-xl-12">
+            <div
+                    class="card py-3 my-3 shadow-sm d-flex flex-row align-items-center justify-content-between">
+                <div class="col mr-2 text-dark">
+                    <h2>Reportes</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card shadow-sm my-3 py-3">
+                <div class="table-responsive-lg table-responsive-sm table-responsive-md col-xl-12 col-md-12 col-sm-12">
+                    <!-- ESCRIBIR CODIGO AQUÍ -->
+                    <!-- Content Wrapper -->
+                    <div id="content-wrapper" class="d-flex flex-column">
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
+
+                        <!-- 404 Error Text -->
+                        <div class="text-center">
+                            <div class="error mx-auto" data-text="404">404</div>
+                            <p class="lead text-gray-800 mb-5">Esta pagina no existe</p>
+                            <p class="text-gray-500 mb-0">La pagina a la que intentas acceder no existe o fue eliminada</p>
+                        </div>
+
+                    </div>
+                    <!-- /.container-fluid -->
+                    </div>
+                </div> <!-- Fin del div escribir aqui -->
+            </div>
+        </div>
+    </div>
+</div>
+<div layout:fragment="style_js">
+    <!-- Aqui va el contenido JS extra -->
+
+    <script th:src="@{/vendor/datatables/jquery.dataTables.min.js}"
+            src="/static/vendor/datatables/jquery.dataTables.min.js"></script>
+
+    <script th:src="@{/vendor/datatables/dataTables.bootstrap4.min.js}"
+            src="/static/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+
+    <script th:src="@{/js/demo/datatables-demo.js}"
+            src="/static/js/demo/datatables-demo.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#precioVigenteTabla').DataTable({
+                //Quitando el ordenamiento de las columnas
+                "aaSorting": [],
+                "aoColumnDefs": [{
+                    'bSortable': true,
+                    'aTargets': [0,3,4]
+                }]
+            });
+            $('#stockEmpresaTabla').DataTable({
+                //Quitando el ordenamiento de las columnas
+                "aaSorting": [],
+                "aoColumnDefs": [{
+                    'bSortable': true,
+                    'aTargets': [0]
+                }]
+            });
+            $('#ordenCompraProveedorProveedor').DataTable();
+            $('#myTable').DataTable();
+            $('#myTableCantidad').DataTable();
+        });
+    </script>
+
+</div>
+
+</body>
+</html>
