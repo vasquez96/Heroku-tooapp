@@ -43,7 +43,6 @@ public class RequisicionController {
     public String menuAdmin(Model model) {
     	List<ProductoProveedor> listProductos = productoService.listAll();
     	ProductoRequisicion productoRequisicion = new ProductoRequisicion();
-    	
     	String x, y;
         for(int j = 0; j < listProductos.size(); j++){ //Inicio ciclo for
             for(int i = 0; i < listProductos.size(); i++){ //Inicio ciclo for
@@ -183,9 +182,28 @@ public class RequisicionController {
         for (ProductoRequisicion nombre : productoRequisicion) {
             System.out.println(nombre.toString());
         }
-        //Obteniendo todos los productos
         List<ProductoProveedor> listProductos = productoService.listAll();
-        //Enviando los productos a la vista
+        String x, y;
+        for(int j = 0; j < listProductos.size(); j++){ //Inicio ciclo for
+            for(int i = 0; i < listProductos.size(); i++){ //Inicio ciclo for
+                if(i != j)
+                {
+                    x = listProductos.get(i).getNombreProductoProveedor().toLowerCase();
+                    y = listProductos.get(j).getNombreProductoProveedor().toLowerCase();
+                    //listProductos.get(i).getNombreProductoProveedor().equals(listProductos.get(j).getNombreProductoProveedor())
+                    System.out.println(y + " vs " + x + " Posicion: " + j + "\n");
+                    if (x.equals(y))
+                    {
+                        listProductos.remove(j);
+                    }
+                }
+            }
+        }
+
+        for(int i = 0; i < listProductos.size(); i++){ //Inicio ciclo for
+            listProductos.get(i).setNombreProductoProveedor(listProductos.get(i).getNombreProductoProveedor().toLowerCase());
+        }
+
         model.addAttribute("listProductos", listProductos);
         model.addAttribute("idReq", id);
         // System.out.println(requisicionDeArticulo.toString());
