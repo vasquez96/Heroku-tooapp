@@ -250,6 +250,7 @@ public class RequisicionController {
         model.addAttribute("idReq", id);
         // System.out.println(requisicionDeArticulo.toString());
         mav.addObject("productoRequisicion", productoRequisicion);
+        mav.addObject("requisicionDeArticulo", requisicionDeArticulo);
         return mav;
     }
     //Eliminar requisicion
