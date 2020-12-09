@@ -43,23 +43,23 @@
 							</div>
 							<div class="col">
 								<div class="form-group">
-									<strong><p>Periodo de gracia:</p></strong>
-									<p class="p-2" th:text="${productoProveedor.periodoDeGracia}"
-										   th:value="${productoProveedor.periodoDeGracia}"></p>
+									<strong><p>Periodo de gracia (días):</p></strong>
+									<p class="p-2" th:text="${productoProveedor.periodoDeGracia} + ' días'"
+										   th:value="${productoProveedor.periodoDeGracia} + ' días'"></p>
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col">
 								<div class="form-group">
-									<strong><p>Descuento:</p></strong>
+									<strong><p>Descuento (%):</p></strong>
 									<p class="p-2" th:text="${productoProveedor.descuento}"
-									   th:value="${productoProveedor.descuento}"></p>
+									   th:value="${productoProveedor.descuento} + ' %'"></p>
 								</div>
 							</div>
 							<div class="col">
 								<div class="form-group">
-									<strong><p>Numero de existencia:</p></strong>
+									<strong><p>Número de existencia:</p></strong>
 									<p class="p-2" th:text="${productoProveedor.numExistencia}"
 									   th:value="${productoProveedor.numExistencia}"></p>
 								</div>
@@ -68,14 +68,14 @@
 						<div class="row">
 							<div class="col">
 								<div class="form-group">
-									<strong><p>Fecha de inicio de promocion:</p></strong>
+									<strong><p>Fecha de inicio de promoción:</p></strong>
 									<p class="p-2" th:text="${productoProveedor.fechaVigenciaInicio}"
 									   th:value="${productoProveedor.fechaVigenciaInicio}"></p>
 								</div>
 							</div>
 							<div class="col">
 								<div class="form-group">
-									<strong><p>Fecha de final de promocion:</p></strong>
+									<strong><p>Fecha de final de promoción:</p></strong>
 									<p class="p-2" th:text="${productoProveedor.fechaVigenciaFinal}"
 									   th:value="${productoProveedor.fechaVigenciaFinal}"></p>
 								</div>
@@ -91,9 +91,9 @@
 							</div>
 							<div class="col">
 								<div class="form-group">
-									<strong><p>Precio:</p></strong>
-									<p class="p-2" th:text="${productoProveedor.precio}"
-									   th:value="${productoProveedor.precio}"></p>
+									<strong><p>Precio (sin descuento):</p></strong>
+									<p class="p-2" th:text="'$ ' + ${productoProveedor.precio}"
+									   th:value="'$ ' + ${productoProveedor.precio}"></p>
 								</div>
 							</div>
 						</div>

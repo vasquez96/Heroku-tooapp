@@ -65,12 +65,12 @@
                                                 <span th:each="producto : ${listProductos}">
                                                     <div th:if="${producto.idProductoProveedor} == ${requisicion.idProductoProveedor.idProductoProveedor}">
                                                         <option th:selected="${producto.idProductoProveedor}"
-                                                                th:text="${producto.nombreProductoProveedor}"
+                                                                th:text="${producto.getNombreProductoProveedor() + ' --- ' + producto.getUnidad()}"
                                                                 th:value="${producto.idProductoProveedor}">
                                                         </option>
                                                     </div>
                                                      <div th:if="${producto.idProductoProveedor} != ${requisicion.idProductoProveedor.idProductoProveedor}">
-                                                    <option th:text="${producto.nombreProductoProveedor}" th:value="${producto.idProductoProveedor}"></option>
+                                                    <option th:text="${producto.getNombreProductoProveedor() + ' --- ' + producto.getUnidad()}" th:value="${producto.idProductoProveedor}"></option>
                                                      </div>
                                                 </span>
                                             </select>

@@ -34,22 +34,23 @@
 					<div
 						class="table-responsive-lg table-responsive-sm table-responsive-md col-xl-12 col-md-12 col-sm-12">
 						<!-- ESCRIBIR CODIGO AQU� -->
-
-						<div class="d-flex flex-row-reverse" >
-							<p class="p-2" th:text="*{requisicionArticulo.fechaPedido}" th:value="*{requisicionArticulo.fechaPedido}"></p>
+						<div class="d-flex flex-row">
+							<p class="p-2"><strong>Fecha de pedido: </strong></p> <!-- Fecha de pedido -->
+							<p class="p-2" th:text="*{requisicionArticulo.getFechaPedido()}"></p>
 						</div>
 						<table class="table">
 							<thead class="thead-dark">
 								<tr>
 									<th scope="col">Nombre del producto</th>
+									<th scope="col">Unidad</th>
 									<th scope="col">Cantidad</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr th:each="requisicion : ${productoRequisicion}">
-									<td
-										th:text="${requisicion.idProductoProveedor.nombreProductoProveedor}">nombreProductoProveedor</td>
-									<td th:text="${requisicion.cantidad}">cantidad</td>
+									<td th:text="${requisicion.idProductoProveedor.nombreProductoProveedor}">NombreProductoProveedor</td>
+									<td th:text="${requisicion.getIdProductoProveedor().getUnidad()}">Unidad</td>
+									<td th:text="${requisicion.cantidad}">Cantidad</td>
 								</tr>
 							</tbody>
 						</table>

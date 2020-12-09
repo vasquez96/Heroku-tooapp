@@ -49,10 +49,8 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <div th:with="i=0">
-                            <tr th:each="movimientoEmpresa : ${movimientoEmpresas}">
-                                <div th:with="i=${i+1}">
-                                    <td th:text="${i}"></td>
+                            <tr th:each="movimientoEmpresa, numero : ${movimientoEmpresas}">
+                                    <td th:text="${numero.count}"></td>
                                     <td th:text="${movimientoEmpresa.getNombreProducto()}"></td>
                                     <td th:text="${movimientoEmpresa.getMovimiento()}"></td>
                                     <td th:text="${movimientoEmpresa.getFechaMovimiento()}"></td>
@@ -60,9 +58,7 @@
                                     <td th:text="${movimientoEmpresa.getCantidadSalida()}"></td>
                                     <td th:text="'$ ' + ${movimientoEmpresa.getPrecioCompra()}"></td>
                                     <td th:text="'$ ' + ${movimientoEmpresa.getTotal()}"></td>
-                                </div>
                             </tr>
-                        </div>
                         </tbody>
                     </table>
                 </div>

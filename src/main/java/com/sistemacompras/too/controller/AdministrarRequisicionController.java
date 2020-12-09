@@ -39,12 +39,12 @@ public class AdministrarRequisicionController {
 
     //Listar las requisiciones pendientes = 0.
     @RequestMapping("/requisicionAdmin")
-    public String viewHomePage(Model model, HttpServletRequest request) {
+    public ModelAndView viewHomePage(HttpServletRequest request) {
     //se crea una lista y se le asignan las requisiciones aprobadas, para eso es el metodo listSelected y el 0 para las pendientes
         List<RequisicionDeArticulo> listRequisicionDeArticulo = requisicionDeArticuloService.listSelected(0);
-        model.addAttribute("listRequisicionDeArticulo", listRequisicionDeArticulo);
-
-        return "RequisicionAdminDepartamento/adminRequisicion.html"; //Nombre del html
+        ModelAndView mav = new ModelAndView("RequisicionAdminDepartamento/adminRequisicion"); //Nombre del html
+        mav.addObject("listRequisicionDeArticulo", listRequisicionDeArticulo);
+        return mav;
     }
 
     //View un producto de proveedor

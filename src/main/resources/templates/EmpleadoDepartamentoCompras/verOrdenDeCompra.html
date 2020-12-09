@@ -32,8 +32,10 @@
                     <!-- ESCRIBIR CODIGO AQUÍ -->
                     <div class="d-flex flex-row">
                         <p><strong>Proveedor:</strong>
-                            <span class="p-2"
-                                  th:text="${detalleOrdenDeCompra.get(0).getIdOrdenDeCompra().getIdProveedor().getNombreProveedor() + ' ' + detalleOrdenDeCompra.get(0).getIdOrdenDeCompra().getIdProveedor().getApellidoProveedor()}"></span>
+                            <span class="p-2" th:text="${detalleOrdenDeCompra.get(0).getIdOrdenDeCompra().getIdProveedor().getNombreProveedor() + ' ' + detalleOrdenDeCompra.get(0).getIdOrdenDeCompra().getIdProveedor().getApellidoProveedor()}"></span>
+                        </p>
+                        <p><strong>Fecha de pedido:</strong>
+                            <span class="p-2" th:text="${detalleOrdenDeCompra.get(0).getIdOrdenDeCompra().getFechaPedido()}"></span>
                         </p>
                     </div>
                     <table class="table">
@@ -47,17 +49,13 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <div th:with="i=0">
-                            <tr th:each="detalle : ${detalleOrdenDeCompra}">
-                                <div th:with="i=${i+1}">
-                                    <td th:text="${i}"></td>
+                            <tr th:each="detalle, numero : ${detalleOrdenDeCompra}">
+                                    <td th:text="${numero.count}"></td>
                                     <td th:text="${detalle.getCantidad()}"></td>
                                     <td th:text="${detalle.idProductoProveedor.nombreProductoProveedor}"></td>
                                     <td th:text="'$ ' + ${detalle.getPrecio()}"></td>
                                     <td th:text="'$ ' + ${detalle.getPrecio() * detalle.getCantidad()}"></td>
-                                </div>
                             </tr>
-                        </div>
                         </tbody>
                     </table>
                     <div class="d-flex flex-row">

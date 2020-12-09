@@ -104,8 +104,8 @@
                 <select style="width: 100%" class="js-example-responsive col-xl-12 form-control" th:name="articulo" name="articulo[]" id="articulo[]">
                     <option value="">Seleccione un artículo</option>
                     <option th:each="producto : ${listProductos}"
-                            th:value="${producto.idProductoProveedor}"
-                            th:text="${producto.nombreProductoProveedor}"></option>
+                            th:value="${producto.getIdProductoProveedor()}"
+                            th:text="${producto.getNombreProductoProveedor() + ' --- ' + producto.getUnidad()}"></option>
                 </select>
             </td>
             <td>

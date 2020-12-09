@@ -65,11 +65,11 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>nombre de producto</th>
-                            <th>periodo de gracia</th>
-                            <th>descuento in</th>
-                            <th>numero de existencia</th>
-                            <th>opciones</th>
+                            <th>Nombre de producto</th>
+                            <th>periodo de gracia (días)</th>
+                            <th>Descuento (%)</th>
+                            <th>Número de existencia</th>
+                            <th>Opciones</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -78,8 +78,8 @@
                             <td th:text="${product.nombreProductoProveedor}">nombre de
                                 producto
                             </td>
-                            <td th:text="${product.periodoDeGracia}">periodo de gracia</td>
-                            <td th:text="${product.descuento}">descuento</td>
+                            <td th:text="${product.periodoDeGracia} + ' días'">periodo de gracia</td>
+                            <td th:text="${product.descuento} + ' %'">descuento</td>
                             <td th:text="${product.numExistencia}">numero de
                                 existencia
                             </td>

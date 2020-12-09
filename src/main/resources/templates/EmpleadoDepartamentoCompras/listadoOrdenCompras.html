@@ -60,7 +60,7 @@
                             <th>Fecha de pedido</th>
                             <th>Fecha de pago</th>
                             <th>Total de la compra</th>
-                            <th>opciones</th>
+                            <th>Opciones</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -69,7 +69,7 @@
                             <td th:text="${orden.getIdEmpleado().getNombreEmpleado()}">nombreEmpleado</td>
                             <td th:text="${orden.fechaPedido}">fechaPedido</td>
                             <td th:text="${orden.fechaPago}">fechaPago</td>
-                            <td th:text="${orden.totalCompra}">totalCompra</td>
+                            <td th:text="'$ ' + ${orden.totalCompra}">totalCompra</td>
                             <td>
                                 <a
                                         th:href="@{ordenesDeCompras/view/{id}(id=${orden.idOrdenDeCompra})}"><button type="button" class="btn btn-success">Ver</button></a>
