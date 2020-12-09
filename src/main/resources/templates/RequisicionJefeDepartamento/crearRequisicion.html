@@ -53,6 +53,13 @@
                     <div class="container">
                         <h1> Lista de artículos </h1>
                         <form id="tabla" action="#" th:action="@{/jefe/requisicion/save}" method="post">
+                            <div class="d-flex flex-row">
+                                <p class="p-2"><i class="text-danger">* </i> <strong>Fecha de entrega
+                                    solicitada: </strong></p> <!-- Fecha de entrega solicitada -->
+                                <div class="col-sm-3 d-flex flex-row">
+                                    <input type="date" class="form-control p-2" th:name="fechaEntrega" required>
+                                </div>
+                            </div>
                             <table id="lista_productos" class="table table-striped">
                                 <thead>
                                 <tr>
@@ -68,7 +75,8 @@
                                 <tr>
                                     <td>
                                         <button type="button" class="btn btn-primary button_agregar_producto"><i
-                                                class="fas fa-plus-square"></i>Agregar producto</button>
+                                                class="fas fa-plus-square"></i>Agregar producto
+                                        </button>
                                     </td>
                                 </tr>
                                 </tfoot>
@@ -98,10 +106,12 @@
     <script id="nuevaFila" type="text/html">
         <tr>
             <td>
-                <input type="number" th:object="${productoRequisicion}" th:name="cantidad" id="cantidad[]" placeholder="Cantidad"/>
+                <input type="number" th:object="${productoRequisicion}" th:name="cantidad" id="cantidad[]"
+                       placeholder="Cantidad"/>
             </td>
             <td>
-                <select style="width: 100%" class="js-example-responsive col-xl-12 form-control" th:name="articulo" name="articulo[]" id="articulo[]">
+                <select style="width: 100%" class="js-example-responsive col-xl-12 form-control" th:name="articulo"
+                        name="articulo[]" id="articulo[]">
                     <option value="">Seleccione un artículo</option>
                     <option th:each="producto : ${listProductos}"
                             th:value="${producto.getIdProductoProveedor()}"
@@ -109,10 +119,10 @@
                 </select>
             </td>
             <td>
-                <button type="button" class="btn btn-danger button_eliminar_producto"> Eliminar </button>
+                <button type="button" class="btn btn-danger button_eliminar_producto"> Eliminar</button>
             </td>
         </tr>
-</script>
+    </script>
 
     <script type="text/javascript">
         function productos() {

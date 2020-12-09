@@ -141,14 +141,7 @@
 
     <script>
         $(document).ready(function() {
-            $('#myTable').DataTable({
-                //Quitando el ordenamiento de las columnas
-                "aaSorting": [],
-                "aoColumnDefs": [{
-                    'bSortable': false,
-                    'aTargets': [0, 1, 2, 3, 4, 5, 6]
-                }]
-            });
+            $('#myTable').DataTable();
         });
     </script>
 </div>

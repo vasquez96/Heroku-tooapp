@@ -3,6 +3,7 @@ package com.sistemacompras.too.controller;
 import com.sistemacompras.too.entity.*;
 import com.sistemacompras.too.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -77,7 +80,8 @@ public class EscenarioCompraController {
     public String guardarRequisicion(
             @RequestParam(name = "idProductoProveedor") ArrayList<Long> idProductoProveedor,
             @RequestParam(name = "idRequisicion") Long idRequisicion,
-            HttpServletRequest request, RedirectAttributes redirAttrs) {
+            @RequestParam(name = "fechaPago") @DateTimeFormat(pattern="dd-MM-yyyy") String fechaPago,
+            HttpServletRequest request, RedirectAttributes redirAttrs) throws ParseException {
         System.out.println("\n**************CANTIDAD DE DATOS: " + idProductoProveedor.size());
         if (idProductoProveedor.isEmpty()){
             redirAttrs.addFlashAttribute("message", "Debe seleccionar al menos un producto");
@@ -172,6 +176,10 @@ public class EscenarioCompraController {
                 Date fechaPedido = new Date();
                 //Agregando la fecha a la orden de compra
                 ordenDe_Compra.setFechaPedido(fechaPedido);
+                //Fecha de pago aproximada
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                Date fechaPagoAproximada = formatter.parse(fechaPago);
+                ordenDe_Compra.setFechaPago(fechaPagoAproximada);
                 //Obtenemos el proveedor por medio de su id y lo asignamos a la orden de compra
                 ordenDe_Compra.setIdProveedor(proveedorService.get(ordenCompra.getKey()));
                 //Guardamos el username del usuario activo  en la variable username
@@ -242,7 +250,7 @@ public class EscenarioCompraController {
                 //System.out.println("****ID ORDEN COMPRA: " + ordenDe_Compra.getIdOrdenDeCompra().toString());
             }//Fin de la creacion de una orden de compra
             redirAttrs.addFlashAttribute("message", "Orden de compra generada correctamente");
-            return "redirect:/empleado";
+            return "redirect:/empleado/requisicionAprobada";
         }
     }
 

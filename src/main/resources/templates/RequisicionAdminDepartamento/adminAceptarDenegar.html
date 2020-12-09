@@ -44,6 +44,8 @@
                                         <p class="p-2" th:text="*{productoRequisicion.get(0).getIdRequisicionDeArticulo().getIdDepartamento().getNombreDepartamento()}"></p>
                                         <p class="p-2"><strong>Fecha de pedido: </strong></p> <!-- Fecha de pedido -->
                                         <p class="p-2" th:text="*{productoRequisicion.get(0).getIdRequisicionDeArticulo().getFechaPedido()}"></p>
+                                        <p class="p-2"><strong>Fecha de entrega: </strong></p> <!-- Fecha de entrega aproximada -->
+                                        <p class="p-2" th:text="*{productoRequisicion.get(0).getIdRequisicionDeArticulo().getFechaEntrega()}"></p>
                                     </div>
 
                                     <table class="table">

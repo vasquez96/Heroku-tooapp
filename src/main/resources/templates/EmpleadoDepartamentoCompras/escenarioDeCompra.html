@@ -64,6 +64,8 @@
                         <p class="p-2" th:text="*{productoRequisicion.get(0).getIdRequisicionDeArticulo().getIdDepartamento().getNombreDepartamento()}"></p>
                         <p class="p-2"><strong>Fecha de pedido: </strong></p> <!-- Fecha de pedido -->
                         <p class="p-2" th:text="*{productoRequisicion.get(0).getIdRequisicionDeArticulo().getFechaPedido()}"></p>
+                        <p class="p-2"><strong>Fecha de entrega: </strong></p> <!-- Fecha de entrega aproximada -->
+                        <p class="p-2" th:text="*{productoRequisicion.get(0).getIdRequisicionDeArticulo().getFechaEntrega()}"></p>
                     </div>
                     <!-- Inicio de la tabla de requisición de artículo -->
                     <table class="table">
@@ -96,6 +98,12 @@
                     <!-- Inicio de la tabla de los productos -->
                     <form id="formularioOrdenCompra" action="#" th:action="@{/empleado/ordenCompra/save}"
                           method="post">
+                        <div class="d-flex flex-row">
+                            <p class="p-2"><i class="text-danger">* </i> <strong>Fecha de pago: </strong></p> <!-- Fecha de pago -->
+                            <div class="col-sm-3 d-flex flex-row">
+                                <input type="date" class="form-control p-2" th:name="fechaPago" required>
+                            </div>
+                        </div>
                         <input type="hidden" th:name="idRequisicion" th:value="${productoRequisicion.get(0).getIdRequisicionDeArticulo().getIdRequisicionDeArticulo()}">
                         <table id="myTable">
                             <thead>

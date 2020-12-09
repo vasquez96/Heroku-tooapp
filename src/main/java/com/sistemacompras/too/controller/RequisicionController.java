@@ -1,16 +1,16 @@
 package com.sistemacompras.too.controller;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
 
 import com.sistemacompras.too.entity.*;
 import com.sistemacompras.too.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -100,8 +100,10 @@ public class RequisicionController {
     public String guardarRequisicion(
             @RequestParam(name = "cantidad") ArrayList<Integer> cantidad,
             @RequestParam(name = "articulo") ArrayList<Long> articulo,
+            @RequestParam(name = "fechaEntrega") @DateTimeFormat(pattern="dd-MM-yyyy") String fechaEntrega,
             HttpServletRequest request, RedirectAttributes redirAttrs
-    ) {
+    ) throws ParseException {
+        System.out.println("FEcha entrega: " + fechaEntrega.toString());
 
         //Verifica si la cantidad o los articulos estan vacios
         if (cantidad.isEmpty() || articulo.isEmpty()){
@@ -146,11 +148,15 @@ public class RequisicionController {
         } else {
 
             //Creando una instancia de fecha para capturar la fecha del hoy
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             Date fecha = new Date();
+            Date fechaEntregaAproximada = formatter.parse(fechaEntrega);
             //Creando una requisicion de articulo
             RequisicionDeArticulo requisicionDeArticulo = new RequisicionDeArticulo();
             //Modificando la fecha de la elaboracion de la requisicion
             requisicionDeArticulo.setFechaPedido(fecha);
+            //Modificando la fecha de entrega aproximada de la requisicion
+            requisicionDeArticulo.setFechaEntrega(fechaEntregaAproximada);
             //Guardamos el username del usuario activo  en la variable username
             String username = request.getUserPrincipal().getName();
             //Se le asigna a userId el id de usuario que tiene la cuenta activa.

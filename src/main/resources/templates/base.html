@@ -67,9 +67,11 @@
                 <li class="nav-item"><a class="nav-link" th:href="@{/jefe/requisicion}"> <i
                         class="fas fa-fw fa-sticky-note"></i> <span>Requisiciones</span>
                 </a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/jefe/ordenesDeCompras}"> <i
-                        class="fas fa-fw fa-shopping-cart"></i> <span>Ordenes de compra</span>
-                </a></li>
+                <div th:if="${#httpServletRequest.remoteUser == 'jefe3'}">
+                    <li class="nav-item"><a class="nav-link" th:href="@{/jefe/ordenesDeCompras}"> <i
+                            class="fas fa-fw fa-shopping-cart"></i> <span>Ordenes de compra</span>
+                    </a></li>
+                </div>
             </div>
             <div sec:authorize="hasRole('ROLE_EMPLEADO')">
                 <li class="nav-item"><a class="nav-link" th:href="@{/empleado/requisicionAprobada}"> <i
