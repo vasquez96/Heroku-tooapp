@@ -85,7 +85,7 @@ public class ProductoProveedorController {
     	productoProveedor.setIdProveedor(proveedor);
         service.save(productoProveedor);
 
-            redirAttrs.addFlashAttribute("message", "Producto guardado correctamente");
+            redirAttrs.addFlashAttribute("message", "Producto guardado con éxito");
             return "redirect:/proveedor/ProductoProveedor" ;
         }
 
@@ -112,7 +112,7 @@ public class ProductoProveedorController {
     @RequestMapping("/ProductoProveedor/delete/{id}")
     public String deleteProduct(@PathVariable(name = "id") Long id,RedirectAttributes redirAttrs){
         service.delete(id);
-        redirAttrs.addFlashAttribute("message", "Producto eliminado correctamente");
+        redirAttrs.addFlashAttribute("message", "Producto eliminado con éxito");
         return "redirect:/proveedor/ProductoProveedor" ;
     }
 }

@@ -12,6 +12,7 @@
         <link th:href="@{/vendor/datatables/dataTables.bootstrap4.min.css}"
               href="/static/vendor/datatables/dataTables.bootstrap4.min.css"
               rel="stylesheet" type="text/css">
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     </div>
 </head>
 
@@ -19,6 +20,19 @@
 
 <div layout:fragment="main_content">
     <!-- Aqui va el contenido principal -->
+    <!-- Mensaje de éxito al crear una requisición -->
+    <div th:if="${message}">
+        <input type="hidden" id="mensaje" th:value="${message}">
+        <script>
+            var mensaje = document.getElementById('mensaje').value;
+            swal({
+                    title: mensaje,
+                    icon: "success",
+                }
+            );
+        </script>
+    </div>
+    <!-- Fin del mensaje de éxito al crear una requisición -->
     <div class="row">
         <div class="col-xl-12">
             <div

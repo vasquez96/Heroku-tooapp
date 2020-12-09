@@ -18,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
@@ -67,7 +68,7 @@ public class AdministrarRequisicionController {
             @RequestParam(value = "boton") String aprobarDenegar,
             @RequestParam(name = "observaciones") String observaciones,
             @RequestParam(name = "isss") Long id,
-            HttpServletRequest request) {
+            HttpServletRequest request, RedirectAttributes redirAttrs) {
         System.out.println("Id de la requisicio: " + id);
         System.out.println("boton: " + aprobarDenegar);
 
@@ -97,6 +98,7 @@ public class AdministrarRequisicionController {
         System.out.println("Hola mundo: " + requisicionDeArticulo.toString());
 
         requisicionDeArticuloService.save(requisicionDeArticulo);
+        redirAttrs.addFlashAttribute("message", "Operación realizada con exito");
         return "redirect:/admin/requisicionAdmin";
     }
 }

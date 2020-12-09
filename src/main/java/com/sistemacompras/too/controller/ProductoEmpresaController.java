@@ -14,6 +14,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import com.sistemacompras.too.entity.ProductoEmpresa;
 import com.sistemacompras.too.service.ProductoEmpresaService;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
@@ -44,9 +45,10 @@ public class ProductoEmpresaController {
 
     //Ruta para guarda la edicion
     @RequestMapping(value = "/productoEmpresa/save", method = RequestMethod.POST)
-    public String saveProduct(@ModelAttribute("productoEmpresa") ProductoEmpresa productoEmpresa, HttpServletRequest request){
+    public String saveProduct(@ModelAttribute("productoEmpresa") ProductoEmpresa productoEmpresa, HttpServletRequest request, RedirectAttributes redirAttrs){
 
         service.save(productoEmpresa);
+        redirAttrs.addFlashAttribute("message", "Inventario del producto editado con exito");
         return "redirect:/bodega/productoEmpresa";
     }
 

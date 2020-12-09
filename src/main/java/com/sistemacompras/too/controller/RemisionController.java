@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -67,7 +69,7 @@ public class RemisionController {
 
     //Cuando se acepta la orden de remision recibiendo el ide de la orden de compra
     @RequestMapping("/recib/{id}")
-    public String deleteProduct(@PathVariable(name = "id") Long id){
+    public String deleteProduct(@PathVariable(name = "id") Long id, RedirectAttributes redirAttrs){
         //Tenemos los detalleordenDeCompra que coincidan con el ir de la orden de empresa que recibimos
         List<DetalleOrdenDeCompra> detalleOrdenDeCompra = detalleOrdenDeCompraService.listAllbyIdOrderCompra(id);
        //Se listan TODOS los productos de la empresa.
@@ -195,7 +197,7 @@ public class RemisionController {
         NotasDeRemision notaDeRemision = notaDeRemisionService.get(idRemision);
         notaDeRemision.setEstado(1);
         notaDeRemisionService.save(notaDeRemision);
-
+        redirAttrs.addFlashAttribute("message", "Remisión aceptada con éxito");
         return "redirect:/bodega/remisiones";
     }
 
