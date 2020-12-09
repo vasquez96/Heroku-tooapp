@@ -46,9 +46,8 @@
                     </ul>
                     <div class="tab-content" id="myTabContent">
                         <!-- Lista de notas de remision pendientes -->
-                        <div class="tab-pane fade show active" id="pendiente" role="tabpanel"
-                             aria-labelledby="pendiente-tab">
-                            <table class="table" id="notasRemisionPendientes">
+                        <div class="tab-pane fade show active" id="pendiente" role="tabpanel" aria-labelledby="pendiente-tab">
+                            <table class="table" id="myTable">
                                 <thead>
                                 <tr>
                                     <th>#</th>
@@ -89,17 +88,17 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="notaDeRemision, numero : ${notasDeRemisions}">
+                                <tr th:each="notaDeRemisionAprobada, numeroAprobado : ${notasDeRemisions}">
                                     <!-- Estado de la nota de remision pendiente -->
-                                    <div th:if="${notaDeRemision.getEstado() == 1}">
-                                        <td th:text="${numero.count}"></td>
+                                    <div th:if="${notaDeRemisionAprobada.getEstado() == 1}">
+                                        <td th:text="${numeroAprobado.count}"></td>
                                         <td>
-                                            <p th:text="${notaDeRemision.getIdOrdenDeCompra().getIdProveedor().getNombreProveedor()}"></p>
-                                            <p th:text="${notaDeRemision.getIdOrdenDeCompra().getIdProveedor().getApellidoProveedor()}"></p>
+                                            <p th:text="${notaDeRemisionAprobada.getIdOrdenDeCompra().getIdProveedor().getNombreProveedor()}"></p>
+                                            <p th:text="${notaDeRemisionAprobada.getIdOrdenDeCompra().getIdProveedor().getApellidoProveedor()}"></p>
                                         </td>
-                                        <td th:text="${notaDeRemision.getIdOrdenDeCompra().getTotalCompra()}"></td>
+                                        <td th:text="'$ ' + ${notaDeRemisionAprobada.getIdOrdenDeCompra().getTotalCompra()}"></td>
                                         <td>
-                                            <a th:href="@{/bodega/remisiones/view/{id}(id=${notaDeRemision.getIdOrdenDeCompra().getIdOrdenDeCompra()})}">
+                                            <a th:href="@{/bodega/remisiones/view/{id}(id=${notaDeRemisionAprobada.getIdOrdenDeCompra().getIdOrdenDeCompra()})}">
                                                 <button type="button" class="btn btn-success">Ver</button>
                                             </a>
                                         </td>
@@ -123,13 +122,12 @@
     <script th:src="@{/vendor/datatables/dataTables.bootstrap4.min.js}"
             src="/static/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-
     <script th:src="@{/js/demo/datatables-demo.js}"
             src="/static/js/demo/datatables-demo.js"></script>
 
     <script>
         $(document).ready(function () {
-            $('#notasRemisionPendientes').DataTable();
+            $('#myTable').DataTable();
             $('#notasRemisionAprobadas').DataTable();
         });
     </script>

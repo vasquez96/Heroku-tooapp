@@ -35,8 +35,10 @@
 						class="table-responsive-lg table-responsive-sm table-responsive-md col-xl-12 col-md-12 col-sm-12">
 						<!-- ESCRIBIR CODIGO AQU� -->
 						<div class="d-flex flex-row">
+							<p class="p-2"><strong>Departamento que solicita la requisición: </strong></p> <!-- Departamento que solicita la requisición -->
+							<p class="p-2" th:text="*{productoRequisicion.get(0).getIdRequisicionDeArticulo().getIdDepartamento().getNombreDepartamento()}"></p>
 							<p class="p-2"><strong>Fecha de pedido: </strong></p> <!-- Fecha de pedido -->
-							<p class="p-2" th:text="*{requisicionArticulo.getFechaPedido()}"></p>
+							<p class="p-2" th:text="*{productoRequisicion.get(0).getIdRequisicionDeArticulo().getFechaPedido()}"></p>
 						</div>
 						<table class="table">
 							<thead class="thead-dark">
@@ -54,6 +56,10 @@
 								</tr>
 							</tbody>
 						</table>
+						<div class="d-flex flex-row">
+							<p class="p-2"><strong>Elaborado por: </strong></p> <!-- Elaborado por-->
+							<p class="p-2" th:text="*{productoRequisicion.get(0).getIdRequisicionDeArticulo().getElaboradoPor()}"></p>
+						</div>
 					</div>
 				</div>
 			</div>

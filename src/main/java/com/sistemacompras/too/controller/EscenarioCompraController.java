@@ -285,13 +285,12 @@ public class EscenarioCompraController {
 
     //Listar las requisiciones aprobadas = 1.
     @RequestMapping("/requisicionAprobada")
-    public String viewHomePageA(Model model, HttpServletRequest request) {
-
+    public ModelAndView viewHomePageA(HttpServletRequest request) {
         //se crea una lista y se le asignan las requisiciones aprobadas, para eso es el metodo listSelected y el 1 para las aprobadas
         List<RequisicionDeArticulo> listRequisicionDeArticulo = requisicionDeArticuloService.listSelected(1);
-        model.addAttribute("listRequisicionDeArticulo", listRequisicionDeArticulo);
-
-        return "EmpleadoDepartamentoCompras/index.html"; //Nombre del html
+        ModelAndView mav = new ModelAndView("EmpleadoDepartamentoCompras/index"); //Nombre del html
+        mav.addObject("listRequisicionDeArticulo", listRequisicionDeArticulo);
+        return mav;
     }
 }
 

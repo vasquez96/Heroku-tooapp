@@ -40,20 +40,20 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>elaborado por</th>
-                            <th>autorizado por</th>
-                            <th>recibido por</th>
-                            <th>fecha de pedido</th>
-                            <th>fecha de entrega</th>
-                            <th>opciones</th>
+                            <th>Elaborado por</th>
+                            <th>Departamento</th>
+                            <th>Autorizado por</th>
+                            <th>Fecha de pedido</th>
+                            <th>Fecha de entrega</th>
+                            <th>Opciones</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="requisicion, numero : ${listRequisicionDeArticulo}">
                             <td th:text="${numero.count}"></td>
                             <td th:text="${requisicion.elaboradoPor}">elaborado por</td>
+                            <td th:text="${requisicion.getIdDepartamento().getNombreDepartamento()}">elaborado por</td>
                             <td th:text="${requisicion.autorizadoPor}">autorizado por</td>
-                            <td th:text="${requisicion.recibidoPor}">descuento</td>
                             <td th:text="${requisicion.fechaPedido}">fecha de Pedido</td>
                             <td th:text="${requisicion.fechaEntrega}">fecha de Entrega</td>
                             <td>

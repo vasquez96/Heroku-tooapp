@@ -31,10 +31,10 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 				redirectUrl = "/proveedor/ProductoProveedor";
 				break;
 			} else if (grantedAuthority.getAuthority().equals("ROLE_EMPLEADO")) {
-				redirectUrl = "/empleado";
+				redirectUrl = "/empleado/requisicionAprobada";
 				break;
 			} else if (grantedAuthority.getAuthority().equals("ROLE_BODEGUERO")) {
-				redirectUrl = "/bodega";
+				redirectUrl = "/bodega/remisiones";
 				break;
 			}
 		}

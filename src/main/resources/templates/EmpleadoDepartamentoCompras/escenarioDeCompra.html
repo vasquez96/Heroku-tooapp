@@ -36,11 +36,6 @@
                 <div class="col mr-2 text-dark">
                     <h2>Escenario de compra</h2>
                 </div>
-                <div class="col-auto">
-                    <a class="btn btn-success text-right" th:href="@{/jefe/requisicion/crear}"> <i
-                            class="fas fa-plus-square"> Crear requisición</i>
-                    </a>
-                </div>
             </div>
         </div>
     </div>
@@ -65,26 +60,35 @@
                     <!-- Fin del mensaje de éxito al crear una orden de compra -->
 
                     <div class="d-flex flex-row">
+                        <p class="p-2"><strong>Departamento que solicita la requisición: </strong></p> <!-- Departamento que solicita la requisición -->
+                        <p class="p-2" th:text="*{productoRequisicion.get(0).getIdRequisicionDeArticulo().getIdDepartamento().getNombreDepartamento()}"></p>
                         <p class="p-2"><strong>Fecha de pedido: </strong></p> <!-- Fecha de pedido -->
-                        <p class="p-2" th:text="*{requisicionArticulo.getFechaPedido()}"></p>
+                        <p class="p-2" th:text="*{productoRequisicion.get(0).getIdRequisicionDeArticulo().getFechaPedido()}"></p>
                     </div>
                     <!-- Inicio de la tabla de requisición de artículo -->
                     <table class="table">
                         <thead class="thead-dark">
                         <tr> <!-- Encabezado de la tabla de requisición -->
                             <th scope="col">Nombre del producto</th>
+                            <th scope="col">Unidad</th>
                             <th scope="col">Cantidad</th>
                         </tr>
                         </thead>
                         <tbody> <!-- Cuerpo de la tabla requisición de artículo -->
                         <tr th:each="requisicion : ${productoRequisicion}">
-                            <td th:text="${requisicion.idProductoProveedor.nombreProductoProveedor}">
-                                nombreProductoProveedor
-                            </td>
+                            <td th:text="${requisicion.idProductoProveedor.nombreProductoProveedor}">nombreProductoProveedor</td>
+                            <td th:text="${requisicion.getIdProductoProveedor().getUnidad()}">Unidad</td>
                             <td th:text="${requisicion.cantidad}">cantidad</td>
                         </tr>
                         </tbody>
                     </table>
+                    <!-- Datos de las personas que elaboraron y autorizaron la requisición -->
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><strong> Elaborado por: </strong></li> <!-- Elaborado por -->
+                        <li class="list-inline-item" th:text="*{requisicionArticulo.getElaboradoPor()}"></li>
+                        <li class="list-inline-item"><strong> Autorizado por: </strong></li> <!-- Autorizado por -->
+                        <li class="list-inline-item" th:text="*{requisicionArticulo.getAutorizadoPor()}"></li>
+                    </ul>
                     <!-- Fin de la tabla de requisición de artículo -->
                     <br><br>
                     <h3>Productos</h3>

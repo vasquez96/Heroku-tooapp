@@ -54,26 +54,26 @@
 
             <div sec:authorize="hasRole('ROLE_ADMIN')">
                 <li class="nav-item"><a class="nav-link" th:href="@{/admin/requisicionAdmin}"> <i
-                        class="fas fa-fw fa-tachometer-alt"></i> <span>Requisiciones</span>
+                        class="fas fa-fw fa-sticky-note"></i> <span>Requisiciones</span>
                 </a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{/admin/movimientoInventario}"> <i
-                        class="fas fa-fw fa-tachometer-alt"></i> <span>Movimiento inventario</span>
+                        class="fas fa-fw fa-exchange-alt"></i> <span>Movimiento inventario</span>
                 </a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{/admin/reportes}"> <i
-                        class="fas fa-fw fa-tachometer-alt"></i> <span>Reportes</span>
+                        class="fas fa-fw fa-chart-line"></i> <span>Reportes</span>
                 </a></li>
             </div>
             <div sec:authorize="hasRole('ROLE_JEFE')">
                 <li class="nav-item"><a class="nav-link" th:href="@{/jefe/requisicion}"> <i
-                        class="fas fa-fw fa-tachometer-alt"></i> <span>Requisiciones</span>
+                        class="fas fa-fw fa-sticky-note"></i> <span>Requisiciones</span>
                 </a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{/jefe/ordenesDeCompras}"> <i
-                        class="fas fa-fw fa-tachometer-alt"></i> <span>Ordenes de compra</span>
+                        class="fas fa-fw fa-shopping-cart"></i> <span>Ordenes de compra</span>
                 </a></li>
             </div>
             <div sec:authorize="hasRole('ROLE_EMPLEADO')">
                 <li class="nav-item"><a class="nav-link" th:href="@{/empleado/requisicionAprobada}"> <i
-                        class="fas fa-fw fa-tachometer-alt"></i> <span>Requisiciones</span>
+                        class="fas fa-fw fa-sticky-note"></i> <span>Requisiciones</span>
                 </a></li>
             </div>
             <div sec:authorize="hasRole('ROLE_PROVEEDOR')">
@@ -83,10 +83,10 @@
             </div>
             <div sec:authorize="hasRole('ROLE_BODEGUERO')">
                 <li class="nav-item"><a class="nav-link" th:href="@{/bodega/remisiones}"> <i
-                        class="fas fa-fw fa-tachometer-alt"></i> <span>Notas de remision</span>
+                        class="fas fa-fw fa-truck"></i> <span>Notas de remision</span>
                 </a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{/bodega/productoEmpresa}"> <i
-                        class="fas fa-fw fa-tachometer-alt"></i> <span>Inventario de la empresa</span>
+                        class="fas fa-fw fa-exchange-alt"></i> <span>Inventario de la empresa</span>
                 </a></li>
             </div>
 

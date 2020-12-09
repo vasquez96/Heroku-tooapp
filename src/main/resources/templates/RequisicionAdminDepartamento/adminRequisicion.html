@@ -32,8 +32,7 @@
     <div class="row">
         <div class="col-xl-12">
             <div class="card shadow-sm my-3 py-3">
-                <div
-                        class="table-responsive-lg table-responsive-sm table-responsive-md col-xl-12 col-md-12 col-sm-12">
+                <div class="table-responsive-lg table-responsive-sm table-responsive-md col-xl-12 col-md-12 col-sm-12">
                     <!-- ESCRIBIR CODIGO AQUÍ -->
 
                     <table class="table" id="myTable">
@@ -57,8 +56,9 @@
                             <td th:text="${requisicion.fechaPedido}">fecha de Pedido</td>
                             <td th:text="${requisicion.fechaEntrega}">fecha de Entrega</td>
                             <td>
-                                <a
-                                        th:href="@{requisicionAdmin/aceptarDenegarAdmin/{id}(id=${requisicion.idRequisicionDeArticulo})}"><button type="button" class="btn btn-success">Ver</button></a>
+                                <a th:href="@{requisicionAdmin/aceptarDenegarAdmin/{id}(id=${requisicion.idRequisicionDeArticulo})}">
+                                    <button type="button" class="btn btn-success">Ver</button>
+                                </a>
                             </td>
                         </tr>
                         </tbody>
@@ -67,6 +67,8 @@
             </div>
         </div>
     </div>
+</div>
+</div>
 </div>
 <div layout:fragment="style_js">
     <!-- Aqui va el contenido JS extra -->
@@ -82,14 +84,8 @@
             src="/static/js/demo/datatables-demo.js"></script>
 
     <script>
-        $(document).ready(function() {
-            $('#myTable').DataTable({
-                //Quitando el ordenamiento de las columnas
-                "aaSorting": [],
-                "aoColumnDefs": [{
-                    'bSortable': false,
-                    'aTargets': [0, 1, 2, 3, 4, 5, 6, 7]
-                }]
+        $(document).ready(function () {
+            var table = $('#myTable').DataTable({}).order([4, 'desc']).draw();
         });
     </script>
 </div>
