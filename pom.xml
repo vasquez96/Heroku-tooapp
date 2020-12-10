@@ -15,9 +15,7 @@
     <name>too</name>
     <description>Sistema de Compras TOO 2020</description>
 
-    <properties>
-        <java.version>11</java.version>
-    </properties>
+
 
     <dependencies>
         <dependency>
